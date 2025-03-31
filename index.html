@@ -1,14 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<link rel="stylesheet" href="index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Association</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Les Chats de Loyasse</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Bienvenue sur le site de notre association</h1>
-    <p>Nous sommes une association dédiée à...</p>
+    <header>
+        <nav>
+            <div class="logo"> <img src="logo.png" alt="Logo Association"> </div>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#adoption">Adoption</a></li>
+                <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
+                <li><a href="#aide">Nous aider</a></li>
+                <li><a href="#actualites">Actualités</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <img src="hero.jpg" alt="Chat principal">
+        <div class="hero-text">
+            <h1>LES CHATS DE LOYASSE</h1>
+            <p>Les chats errants méritent aussi un foyer aimant...</p>
+            <div class="cta-buttons">
+                <button>Améliorer</button>
+                <button>Donner</button>
+                <button>Adopter</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="adoption">
+        <h2>Ils vous attendent !</h2>
+        <div class="cats-grid">
+            <div class="cat"><img src="chat1.jpg" alt="Shadow"><p>Shadow ♂</p></div>
+            <div class="cat"><img src="chat2.jpg" alt="Rusty"><p>Rusty ♂</p></div>
+            <div class="cat"><img src="chat3.jpg" alt="Luna"><p>Luna ♀</p></div>
+            <div class="cat"><img src="chat4.jpg" alt="James"><p>James ♂</p></div>
+            <div class="cat"><img src="chat5.jpg" alt="Joe"><p>Joe ♂</p></div>
+            <div class="cat"><img src="chat6.jpg" alt="Mary"><p>Mary ♀</p></div>
+        </div>
+        <button>En voir plus</button>
+    </section>
+    
+    <section class="actualites">
+        <h2>Actualités</h2>
+        <div class="news-card">
+            <img src="news1.jpg" alt="Chat en cage">
+            <h3>Opération de PAO</h3>
+            <p>Bonjour, un de nos chats a été récemment opéré...</p>
+            <button>Lire plus</button>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <img src="logo.png" alt="Logo Association">
+            <p>3, rue Contact Gatier, 69005 LYON</p>
+            <p>☎ 06 77 68 45 11</p>
+            <p>✉ chats.loyasse@gmail.com</p>
+        </div>
+    </footer>
 </body>
 </html>
 
