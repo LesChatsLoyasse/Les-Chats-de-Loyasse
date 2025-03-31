@@ -3,6 +3,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
+	color: white;
     padding: 0;
     background-color: #f5f5f5;
 }
@@ -42,7 +43,7 @@ nav ul li a {
 
 .accueil {
     position: relative;
-    text-align: center;
+    text-align: left;
     color: white;
     margin-top: 60px;
 }
@@ -57,15 +58,27 @@ nav ul li a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 10px;
+}
+
+.separator {
+    width: 50px;
+    height: 2px;
+    background: white;
+    margin: 10px auto 20px;
+    border: none;
+}
+
+.highlight {
+    font-weight: bold;
 }
 
 .cta-buttons button {
     margin: 5px;
     padding: 10px 20px;
     background-color: #8a9a5b;
+	background: rgba(50, 70, 40, 0.8);
     color: white;
     border: none;
     cursor: pointer;
