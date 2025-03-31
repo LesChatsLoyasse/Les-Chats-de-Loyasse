@@ -40,19 +40,19 @@ nav ul li a {
     font-weight: bold;
 }
 
-.hero {
+.accueil {
     position: relative;
     text-align: center;
     color: white;
     margin-top: 60px;
 }
 
-.hero img {
+.accueil img {
     width: 100%;
     height: auto;
 }
 
-.hero-text {
+.accueil-text {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -77,7 +77,7 @@ nav ul li a {
     background: #d4d8be;
 }
 
-.cats-grid {
+.liste-adoption {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 20px;
