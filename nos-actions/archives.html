@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Chats de Loyasse</title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+    <script src="../script.js" defer></script>
+    <script src="../archives-script.js" deger></script>
+    <!-- Barre de navigation -->
+    <header id="header">
+        <nav id="nav-placeholder">
+            <div class="logo"> <img src="../static/logo/logo.png" alt="Logo Association"> </div>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="../adopter.html">Adopter</a></li>
+                <li><a href="../qui-sommes-nous.html">Qui sommes nous ?</a></li>
+                <li class="dropdown"><a href="#">Nos chats<img src="../static/icones/arrow.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../nos-chats/nouvelles-chats.html">Des nouvelles de nos chats</a></li>
+                        <li><a href="../nos-chats/chats-partis.html">Ils nous ont quittés</a></li>
+                    </ul>
+                </li>
+                <li><a href="../nous-aider.html">Nous aider</a></li>
+                <li class="dropdown"><a href="#">Nos actions<img src="../static/icones/arrow.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="actualites.html">Nos actions récentes</a></li>
+                        <li><a href="archives.html">Archives</a></li>
+                        <li><a href="gazette.html">Gazette</a></li>
+                    </ul>
+                </li>
+                <li><a href="../contact.html">Contacts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Haut de page -->
+    <section class="accueil archives">
+        <div class="accueil-text">
+            <h1 class="title">NOS ACTIONS PASSÉES</h1>
+			  <hr class="separator">
+            <p class="text"><strong>Retrouvez ici les actions passées concernant Les Chats de la Loyasse</strong></p>
+            <p class="text">Pour retrouvez nos actualités, contenant la liste de nos actions récentes ainsi que nos actions à venir, rendez-vous dans <a href="actualités.html">nos actions récentes</a></p>
+        </div>
+    </section>
+
+    <!-- details des actions-->
+    <section class="section-actions">
+        <div class="liste-actions" id="liste-actions">
+        </div>
+
+        <nav role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section">
+            <ul class="pagination">
+               <button id="prevButton" aria-label="Page précédente"><img src="../static/icones/icon-arrow-2.svg"></button>
+               <button id="nextButton" aria-label="Page suivante"><img src="../static/icones/icon-arrow-2.svg"></button>
+            </ul>
+         </nav>
+    </section>
+    
+  <!-- Partie contact -->
+  <div class="footer">
+    <div class="footer-content">
+    <img src="../static/logo/logo-footer.png" alt="Logo Association">
+        <section class="contact">
+            <div class="contact-link"><img src="../static/icones/address.png"><p>3, rue Cardinal Gerlier, 69005 LYON</p></div>
+            <div class="contact-link"><img src="../static/icones/phone.png"><p>06 77 61 45 11</p></div>
+            <div class="contact-link"><img src="../static/icones/mail.png"><p>chats.loyasse@gmail.com</p></div>
+            <div class="contact-link">
+                <div class="socials">
+                    <a href="https://www.facebook.com/p/Association-Les-Chats-de-Loyasse-100064752067295/?locale=fr_FR"  target="_blank"><img src="../static/icones/facebook.png"></a>
+                    <a href="https://www.instagram.com/leschatsdeloyasse/"  target="_blank"><img src="../static/icones/instagram.png"></a>
+                </div>
+        </section>
+    </div>
+    <a href="https://www.journal-officiel.gouv.fr/pages/associations-detail-annonce/?q.id=id:201700211063"  target="_blank">Statut legal</a>
+  </div>  
+</body>
+</html>

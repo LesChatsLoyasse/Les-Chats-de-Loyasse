@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head id="adopter">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopter</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <script src="script.js" defer></script>
+    <script src="adoption-script.js" defer></script>
+    <!-- Barre de navigation -->
+    <header id="header">
+        <nav id="nav-placeholder">
+            <div class="logo"> <img src="static/logo/logo.png" alt="Logo Association"> </div>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="adopter.html">Adopter</a></li>
+                <li><a href="qui-sommes-nous.html">Qui sommes nous ?</a></li>
+                <li class="dropdown"><a href="#">Nos chats<img src="static/icones/arrow.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nos-chats/nouvelles-chats.html">Des nouvelles de nos chats</a></li>
+                        <li><a href="nos-chats/chats-partis.html">Ils nous ont quittés</a></li>
+                    </ul>
+                </li>
+                <li><a href="nous-aider.html">Nous aider</a></li>
+                <li class="dropdown"><a href="#">Nos actions<img src="static/icones/arrow.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nos-actions/actualites.html">Nos actions récentes</a></li>
+                        <li><a href="nos-actions/archives.html">Archives</a></li>
+                        <li><a href="nos-actions/gazette.html">Gazette</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contacts</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- SECTION ADOPTION -->
+
+    <!-- Text qui defile -->
+
+    <section class="accueil page-adoption-top">
+        <div class="page-adoption-top-text">
+            <h1 class="title">Adopter le compagnon
+            <span class="title-slider">
+                <span class="slider">
+                    <span class="slider-word">idéal</span>
+                    <span class="slider-word">de vos rêves</span>
+                    <span class="slider-word">qui changera votre vie</span>
+                    <span class="slider-word">fait pour vous</span>
+                    <span class="slider-word">qui remplira votre coeur</span>
+                    <span class="slider-word">aussi unique que vous</span>
+                    <span class="slider-word">qui vous attend</span>
+                </span>
+            </span>
+            </h1>
+			  <hr class="page-adoption-separator">
+    </section>
+
+    <!-- Titre de la liste d'adoption -->
+
+    <section class="page-adoption-list">
+        <span class="page-adoption-list-text checkVisibility">
+            <h2 class="subtitle">En attente d'adoption</h2>
+            <p class="text" id="text-adoption-list">Si vous souhaitez en savoir plus à propos d’un chat, cliquez sur sa photo</p>
+        </span>
+
+        <!-- Bouton de filtres en haut de la liste d'adoption -->
+        <!-- Listage par "Tous", "Chatons" ou "Adultes"-->
+
+        <div class="action-buttons">
+            <div class="filter-buttons" role="group" aria-label="Filtrer par âge">
+                <button id="filterAllButton" class="filter-button filter-active">Tous</button>
+                <button id="filterAdultesButton" class="filter-button">Adultes</button>
+                <button id="filterChatonsButton" class="filter-button">Chatons</button>
+            </div>
+        </div>
+
+        <!-- Vue grille de tous les chats a l'adoption -->
+        
+        <div class="page-adoption-grille" id="adoptionGrid"> </div>
+
+        <!-- Vue detaille des chats lors d'un clic sur une card -->
+        <section id="detailView" class="detail-view hidden" aria-labelledby="detailName" role="region">
+            <button id="backButton" class="back-button" aria-label="Retour à la liste">
+                <img src="static/icones/icon-arrow-2.svg" alt="Retour">
+            </button>
+            <article class="detail-card">
+                <img id="detailImage" src="" alt="Photo détaillée du chat" class="detail-image">
+                <div class="detail-text-content">
+                    <img id="detailGenderIcon" src="" alt="Genre" class="detail-gender-icon">
+                    <h2 id="detailName" class="detail-name">Nom du Chat</h2>
+                    <span id="detailAge" class="detail-age">Âge</span>
+                    <p id="detailQuote" class="detail-quote">"Citation"</p>
+                    <div id="detailDescription" class="detail-description">
+                    </div>
+                </div>
+            </article>
+            <div class="carousel">
+                <div class="carousel-photos-container" id="carouselPhotosContainer">
+                </div>
+                <div class="carousel-buttons-container" id="carouselButtonsContainer">
+                </div>
+            </div>
+        </section>
+
+        <nav role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section">
+            <ul class="pagination">
+               <button id="prevButton" aria-label="Page précédente"><img src="static/icones/icon-arrow-2.svg"></button>
+               <button id="nextButton" aria-label="Page suivante"><img src="static/icones/icon-arrow-2.svg"></button>
+            </ul>
+         </nav>
+    </section>
+    
+
+    <!-- Section Contact -->
+    <div class="footer">
+        <div class="footer-content">
+        <img src="static/logo/logo-footer.png" alt="Logo Association">
+            <section class="contact">
+                <div class="contact-link"><img src="static/icones/address.png"><p>3, rue Cardinal Gerlier, 69005 LYON</p></div>
+                <div class="contact-link"><img src="static/icones/phone.png"><p>06 77 61 45 11</p></div>
+                <div class="contact-link"><img src="static/icones/mail.png"><p>chats.loyasse@gmail.com</p></div>
+                <div class="contact-link">
+                    <div class="socials">
+                        <a href="https://www.facebook.com/p/Association-Les-Chats-de-Loyasse-100064752067295/?locale=fr_FR"  target="_blank"><img src="static/icones/facebook.png"></a>
+                        <a href="https://www.instagram.com/leschatsdeloyasse/"  target="_blank"><img src="static/icones/instagram.png"></a>
+                    </div>
+            </section>
+        </div>
+        <a href="https://www.journal-officiel.gouv.fr/pages/associations-detail-annonce/?q.id=id:201700211063"  target="_blank">Statut legal</a>
+    </div>
+</body>
+</html>

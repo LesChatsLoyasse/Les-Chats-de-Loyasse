@@ -5,71 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Chats de Loyasse</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"> <img src="logo.png" alt="Logo Association"> </div>
+    <script src="script.js" defer></script>
+    <!-- Barre de navigation -->
+    <header id="header">
+        <nav id="nav-placeholder">
+            <div class="logo"> <img src="static/logo/logo.png" alt="Logo Association"> </div>
             <ul>
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#adoption">Adoption</a></li>
-                <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
-                <li><a href="#aide">Nous aider</a></li>
-                <li><a href="#actualites">Actualités</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="adopter.html">Adopter</a></li>
+                <li><a href="qui-sommes-nous.html">Qui sommes nous ?</a></li>
+                <li class="dropdown"><a href="#">Nos chats<img src="static/icones/arrow.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nos-chats/nouvelles-chats.html">Des nouvelles de nos chats</a></li>
+                        <li><a href="nos-chats/chats-partis">Ils nous ont quittés</a></li>
+                    </ul>
+                </li>
+                <li><a href="nous-aider.html">Nous aider</a></li>
+                <li class="dropdown"><a href="#">Nos actions<img src="static/icones/arrow.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nos-actions/actualites.html">Nos actions récentes</a></li>
+                        <li><a href="nos-actions/archives.html">Archives</a></li>
+                        <li><a href="nos-actions/gazette.html">Gazette</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contacts</a></li>
             </ul>
         </nav>
     </header>
     
-    <section class="accueil">
-        <img src="static/images/accueil.jpg" alt="Image d'accueil">
+    <!-- Accueil du site -->
+    <section class="accueil homepage">
         <div class="accueil-text">
-            <h1>LES CHATS DE LA LOYASSE</h1>
+            <h1 class="title">LES CHATS DE LA LOYASSE</h1>
 			  <hr class="separator">
-            Le chat est l’animal de compagnie le plus représenté dans les foyers ;
+            <p class="text">Le chat est l’animal de compagnie le plus représenté dans les foyers ;
             malheureusement, on observe de plus en plus d’abandons et de fugues.<br>
             À Lyon, il y a plusieurs milliers de chats errants, c’est une réalité que nous constatons quotidiennement sur le terrain.</p>
-        <p class="highlight">Les chats errants demeurent souvent invisibles aux yeux des citadins et c’est pourquoi nous sommes là pour les aider.</p>
-            <div class="cta-buttons">
-                <button>Adherer</button>
-                <button>Donner</button>
-                <button>Adopter</button>
+        <p class="highlight">Les chats errants demeurent souvent invisibles aux yeux des citadins et c’est pourquoi nous sommes là pour les aider.</p></p>
+            <div class="accueil-buttons">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.helloasso.com%2Fassociations%2Fassociation-les-chats-de-loyasse%2Fadhesions%2Fadhesion-les-chats-de-loyasse&sa=D&sntz=1&usg=AOvVaw0lGMFqls0VS19YoFy2FcKp"  target="_blank"><button class="action-button accueil-button"><img src="static/icones/mains-coeur.png">Adherer</button></a>
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.helloasso.com%2Fassociations%2Fassociation-les-chats-de-loyasse%2Fformulaires%2F7&sa=D&sntz=1&usg=AOvVaw3pEcGLYBDnmaPKAEy1qofB"  target="_blank"><button class="action-button accueil-button"><img src="static/icones/piece-coeur.png">Donner</button></a>
+                <a href="adopter.html"><button class="action-button accueil-button"><img src="static/icones/coeur-chat.png">Adopter</button></a>
             </div>
         </div>
     </section>
     
+    <!-- Partie adoption -->
     <section class="adoption">
-        <h2>Ils vous attendent !</h2>
+        <section class="adoption-text checkVisibility">
+            <h2 class="subtitle">Ils vous attendent</h2>
+            <p class="text">Venez rencontrer nos petits pensionnaires en recherche d'une famille pour la vie</p>
+        </section>
         <div class="liste-adoption">
-            <div class="cat"><img src="chat1.jpg" alt="Shadow"><p>Shadow <img src="static/icones/male.png" alt="male"></p></div>
-            <div class="cat"><img src="chat2.jpg" alt="Rusty"><p>Rusty <img src="static/icones/male.png" alt="male"></p></div>
-            <div class="cat"><img src="chat3.jpg" alt="Luna"><p>Luna <img src="static/icones/femelle.png" alt="femelle"></p></div>
-            <div class="cat"><img src="chat4.jpg" alt="James"><p>James <img src="static/icones/male.png" alt="male"></p></div>
-            <div class="cat"><img src="chat5.jpg" alt="Joe"><p>Joe <img src="static/icones/male.png" alt="male"></p></div>
-            <div class="cat"><img src="chat6.jpg" alt="Mary"><p>Mary <img src="static/icones/femelle.png" alt="femelle"></p></div>
+            <div class="cat-card"><img src="static/temp/adoption1.jpg"><div class="overlay"><p>Shadow</p><img src="static/icones/male.png"></div></div>
+            <div class="cat-card"><img src="static/temp/adoption2.jpg"><div class="overlay"><p>Rusty</p><img src="static/icones/male.png"></div></div>
+            <div class="cat-card"><img src="static/temp/adoption1.jpg"><div class="overlay"><p>Luna</p><img src="static/icones/femelle.png"></div></div>
+            <div class="cat-card"><img src="static/temp/adoption2.jpg"><div class="overlay"><p>James</p><img src="static/icones/male.png"></div></div>
+            <div class="cat-card"><img src="static/temp/adoption1.jpg"><div class="overlay"><p>Joe</p><img src="static/icones/male.png"></div></div>
+            <div class="cat-card"><img src="static/temp/adoption2.jpg"><div class="overlay"><p>Mary</p><img src="static/icones/femelle.png"></div></div>
         </div>
-        <button>En voir plus</button>
+        <button class="action-button"><a href="adopter.html">EN VOIR PLUS</a></button>
     </section>
     
+    <!-- Partie actualites -->
     <section class="actualites">
-        <h2>Actualités</h2>
         <div class="news-card">
-            <img src="static/images/actualites.jpg" alt="Image actualites">
-            <h3>Opération de PAO</h3>
-            <p>Bonjour, un de nos chats a été récemment opéré...</p>
-            <button>Lire plus</button>
+            <h2 class="subtitle">Actualités</h2>
+            <h3 class="section-title">Opération de PAO</h3>
+            <div class="preview-text">
+                <p>Bonjour, je m’appelle PAO. <br> Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il m‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité. »</p>
+            </div>
+            <img src="static/temp/adoption1.jpg">
+            <button class="action-button"><a href="nos-actions/actualites.html">EN LIRE PLUS</a></button>
         </div>
     </section>
     
-    <footer>
+    <!-- Partie contact -->
+    <div class="footer">
         <div class="footer-content">
-            <img src="logo.png" alt="Logo Association">
-            <p>3, rue Contact Gatier, 69005 LYON</p>
-            <p>☎ 06 77 68 45 11</p>
-            <p>✉ chats.loyasse@gmail.com</p>
+        <img src="static/logo/logo-footer.png" alt="Logo Association">
+            <section class="contact">
+                <div class="contact-link"><img src="static/icones/address.png"><p>3, rue Cardinal Gerlier, 69005 LYON</p></div>
+                <div class="contact-link"><img src="static/icones/phone.png"><p>06 77 61 45 11</p></div>
+                <div class="contact-link"><img src="static/icones/mail.png"><p>chats.loyasse@gmail.com</p></div>
+                <div class="contact-link">
+                    <div class="socials">
+                        <a href="https://www.facebook.com/p/Association-Les-Chats-de-Loyasse-100064752067295/?locale=fr_FR"  target="_blank"><img src="static/icones/facebook.png"></a>
+                        <a href="https://www.instagram.com/leschatsdeloyasse/"  target="_blank"><img src="static/icones/instagram.png"></a>
+                    </div>
+            </section>
         </div>
-    </footer>
+        <a href="https://www.journal-officiel.gouv.fr/pages/associations-detail-annonce/?q.id=id:201700211063"  target="_blank">Statut legal</a>
+    </div>
 </body>
 </html>
 
