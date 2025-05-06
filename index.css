@@ -636,9 +636,9 @@ nav[role="navigation"] {
         content: "";
         position: absolute;
         top: 103vh;
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
+        width: 100vh;
+        max-width: 100vh;
+        min-width: 100vh;
         height: 100%;
         background: url('static/vagues/vague-accueil-bottom.png') no-repeat;
         z-index: 2; 
