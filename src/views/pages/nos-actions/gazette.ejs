@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <%- include('/head.ejs') %> 
+    
+    <body>
+        <%- include('/header.ejs') %>
+
+        <section class="accueil gazette">
+            <div class="accueil-text">
+                <h1 class="title">NOTRE GAZETTE !</h1>
+                <hr class="separator">
+                <p class="highlight section-title">Pas qu'une simple NewsLetter !</p>
+                <p class="text">Tous les mois, Les Chats de la Loyasse vous conconctent une gazette inédite ! Les dernières actualités, des conseils pour vous et vos animaux, la parole de nos bénévoles et des fictions pour vous divertir, c'est ce que vous pouvez retrouver (et bien plus) dans vos mails en vous abonnant à notre gazette mensuelle ! </p>
+            </div>
+        </section>
+
+        <section class="section-anciennes-gazettes">
+            <div class="anciennes-gazettes-titre">
+                <p class="subtitle">Nos anciennes gazettes</p>
+                <p class="text">Retrouvez nos anciennes gazettes mensuelles en cliquant sur les photos ci-dessous, pour ne pas loupez les suivantes, abonnez-vous !</p>
+            </div>
+            <div class="anciennes-gazettes-liens">
+                <div class="ancienne-gazette">
+                    <a href="https://drive.google.com/file/d/1SH5hGNTusRQVsTLkuKoYG5r296IJaDym/view?usp=drive_link" target="_blank">
+                        <img src="../assets/images/image-default.jpg">
+                        <p class="section-title">La gazette de Mars</p>
+                    </a>
+                </div>
+                <div class="ancienne-gazette">
+                    <a href="https://drive.google.com/file/d/1aDOsSL5uBfU5mPy71bnRS-i7XX1YuylP/view?usp=drive_link" target="_blank">
+                        <img src="../assets/images/image-default.jpg">
+                        <p class="section-title">La gazette de Février</p>
+                    </a>
+                </div>
+                <div class="ancienne-gazette">
+                    <a href="https://drive.google.com/file/d/10SD03kHTOL5uh0qNoaQtkWcilLU1_rKR/view?usp=drive_link" target="_blank">
+                        <img src="../assets/images/image-default.jpg">
+                        <p class="section-title">La gazette de Janvier</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-abonnement-gazette">
+            <div class="formulaire-abonnement">
+                <iframe data-w-type="embedded" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://sizhj.mjt.lu/wgt/sizhj/xr90/form?c=39d682e1" width="100%" style="height: 0;"></iframe>
+
+                <script type="text/javascript" src="https://app.mailjet.com/pas-nc-embedded-v1.js"></script>
+            </div>
+        </section>
+
+        <%- include('/footer.ejs') %>
+    </body>
+</html>

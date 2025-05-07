@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <%- include('/head.ejs') %> 
+    
+    <body>
+        <%- include('/header.ejs') %>
+        
+        <section class="accueil qui-sommes-nous">
+            <div class="text-qui-sommes-nous">
+                <h1 class="title">QUI SOMMES NOUS ?</h1>
+                <hr class="separator">
+                <p class="text">Les Chats de la Loyasse est une association lyonnaise située à Lyon 5, dans le secteur de la Loyasse</p>
+                <p class="text">Nous aidons au quotidien les chats errants, nous les nourrissons, les stérilisons, et les soignons. Nous socialisons également des chatons, afin de les « sortir » des rues pour les faire  adopter.</p>
+                <p class="text">Nous avons pour but d’installer des abris pour chats, afin de les protéger de la météo et de les nourrir à l’abri. Malheureusement, ces installations sont souvent enlevées par des riverains.</p>
+                <p class="text">Nous sommes là pour aider et protéger les chats des rues.</p>
+            </div>
+        </section>
+
+        <!-- details des actions-->
+
+        <section class="section-association-actions">
+            <div class="association-actions">
+                <h2 class="subtitle">LE BUT DE L'ASSOCIATION</h2>
+                <div class="list-association-actions">
+                    <div class="association-action">
+                        <img src="./assets/icones/don-nourriture.png">
+                        <p><strong>Récolter</strong> de la nourriture indispensable à la survie des chats</p>
+                    </div>
+                    <div class="association-action">
+                        <img src="./assets/icones/don-vetements.png">
+                        <p>Fournir des <strong>abris, petites courvertures</strong> et tout ce qui aide les chats dans les rues</p>
+                    </div>
+                    <div class="association-action">
+                        <img src="./assets/icones/sensibilisation.png">
+                        <p><strong>Sensibiliser</strong> le public aux conditions de vie des chats errants et aux enjeux de la stérilisation</p>
+                    </div>
+                    <div class="association-action">
+                        <img src="./assets/icones/financer.png">
+                        <p><strong>Financer</strong> les stérilisations, identifications et le nécessaire pour les familles d'accueil</p>
+                    </div>
+                    <div class="association-action">
+                        <img src="./assets/icones/don-medicament.png">
+                        <p><strong>Fournir</strong> les soins nécessaires aux chats errants</p>
+                    </div>
+                    <div class="association-action">
+                        <img src="./assets/icones/coeur-chat-assis.png">
+                        <p>Participer à des <strong>animations</strong> pour faire entendre la voix des chats errants</p>
+                    </div>
+                </div>
+                <p class="text-fin">L’association récupère également des croquettes pour chiens et du matériel divers  destinés à des associations animalières européennes.</p>
+            </div>
+        </section>
+        
+        <%- include('/footer.ejs') %>
+    </body>
+</html>

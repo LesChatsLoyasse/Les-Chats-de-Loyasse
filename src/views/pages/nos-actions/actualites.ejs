@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <%- include('/head.ejs') %> 
+    
+    <body>
+        <%- include('/header.ejs') %>
+        
+        <section class="accueil nos-actions">
+            <div class="accueil-text">
+                <h1 class="title">NOS ACTIONS</h1>
+                <hr class="separator">
+                <p class="text"><strong>Retrouvez ici les actualités concernant Les Chats de la Loyasse</strong></p>
+                <p class="text">Pour retrouvez nos actions passées, rendez-vous dans <a href="archives.html">nos archives</a></p>
+            </div>
+        </section>
+
+        <!-- details des actions-->
+        <section class="section-actions">
+            <div class="liste-actions" id="liste-actions">
+            </div>
+
+            <nav role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section" class="nav-pagination">
+                <ul class="pagination">
+                <button id="prevButton" aria-label="Page précédente"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                <button id="nextButton" aria-label="Page suivante"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                </ul>
+            </nav>
+        </section>
+        
+        <%- include('/footer.ejs') %>
+    </body>
+</html>
