@@ -1,3 +1,6 @@
+var fromRoot = path => { return document.getElementById('relative-root').textContent + path};
+function getAllActionsData() { return JSON.parse(document.getElementById('action-data').textContent); }
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // --- Configuration ---
@@ -16,8 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const actionListSection = document.querySelector(".section-actions");
     const prevButton = document.getElementById("prevButton");
     const nextButton = document.getElementById("nextButton");
-    const allData = getAllActionData()
+    const allData = getAllActionsData();
     const paginationNav = document.getElementById('pagination-section');
+
 
     // --- Vérification initiale des éléments DOM essentiels ---
     if (!actionList || !paginationNav || !prevButton || !nextButton) {
@@ -27,19 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return; // Arrêter l'exécution
     }
 
-    // Fonction pour obtenir TOUTES les données (simulé ici)
-    function getAllActionData() {
-        // Ajout de plus de données pour bien tester la pagination
-        return [
-            { id: "1", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité.", imageSrc: "/assets/temp/adoption1.jpg" },
-            { id: "2", title: "Luna", imageSrc: "/assets/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "3", title: "L'operation de PAO", imageSrc: "/assets/temp/adoption2.jpg", description: "Rocky est un jeune chat plein d'énergie..." },
-            { id: "4", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité.", imageSrc: "/assets/temp/adoption1.jpg" },
-            { id: "5", title: "Luna", imageSrc: "/assets/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "6", title: "L'operation de PAO", imageSrc: "/assets/temp/adoption2.jpg", description: "Rocky est un jeune chat plein d'énergie..." },
-        ];
-    }
-
     // NOUVELLE fonction qui simule une récupération (asynchrone)
     function fetchActionData() {
         console.log("Récupération des actions archivées...");
@@ -47,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Simule un délai réseau (ex: 300ms) pour imiter un appel serveur
             setTimeout(() => {
                 try {
-                    const data = getAllActionData(); // Pour l'instant, on prend nos données locales
+                    const data = getAllActionsData(); // Pour l'instant, on prend nos données locales
                     console.log(`Données récupérées (simulation) : ${data.length} éléments.`);
                     resolve(data); // La Promise réussit et renvoie les données
                 } catch (error) {
@@ -97,14 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
             card.dataset.actionId = action.id;
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
-            const imageSource = action.imageSrc || '/assets/temp/default-cat.jpg';
+            const imageSource = action.imageSrc || fromRoot('assets/images/image-default.jpg');
             // Utilisation de classes pour les images pour un ciblage CSS plus précis
             card.innerHTML = `
                 <div class="item-action-text">
                     <p class="section-title">${action.title}</p>
                     <p class="text">${action.description}</p>
                 </div>
-                <img src="../${imageSource}">
+                <img src="${imageSource}">
             `;
             actionList.appendChild(card);
         });

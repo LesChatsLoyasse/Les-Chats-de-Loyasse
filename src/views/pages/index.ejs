@@ -47,10 +47,10 @@
             <div class="liste-adoption">
                 <% adoptionCats.forEach((cat) => { %>
                     <div class="cat-card">
-                        <img src="<%= cat.imageSource %>">
+                        <img src="<%= cat.imageSource %>" />
                         <div class="overlay">
                             <p><%= cat.name %></p>
-                            <img src="<%= cat.gender %>">
+                            <img src="./assets/icones/<%= cat.gender %>.png" />
                         </div>
                     </div>
                 <% }); %>

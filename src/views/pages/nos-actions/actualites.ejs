@@ -6,6 +6,9 @@
     <body>
         <%- include('/header.ejs') %>
         
+        <script src="../js/actions.js" defer></script>
+        <script id="action-data" type='application/json'><%- JSON.stringify(latestActionsData) %></script>
+
         <section class="accueil nos-actions">
             <div class="accueil-text">
                 <h1 class="title">NOS ACTIONS</h1>

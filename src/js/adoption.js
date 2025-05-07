@@ -1,3 +1,5 @@
+var fromRoot = path => { return document.getElementById('relative-root').textContent + path};
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // --- Configuration ---
@@ -57,19 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fonction pour obtenir TOUTES les données (simulé ici)
     function getAllAdoptionData() {
-        // Ajout de plus de données pour bien tester la pagination
         return JSON.parse(document.getElementById('adoption-data').textContent);
     }
 
     // NOUVELLE fonction qui simule une récupération (asynchrone)
     function fetchAdoptionData() {
-        console.log("Récupération des données d'adoption...");
         return new Promise((resolve, reject) => {
             // Simule un délai réseau (ex: 300ms) pour imiter un appel serveur
             setTimeout(() => {
                 try {
                     const data = getAllAdoptionData(); // Pour l'instant, on prend nos données locales
-                    console.log(`Données récupérées (simulation) : ${data.length} éléments.`);
                     resolve(data); // La Promise réussit et renvoie les données
                 } catch (error) {
                     console.error("Erreur lors de la récupération simulée des données :", error);
@@ -105,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {string} catId L'ID unique du chat à afficher.
      */
     function showDetailView(catId) {
-        console.log(`Affichage détail pour catId: ${catId}`);
-
         // Vérification si les éléments DOM de la vue détail existent
         if (!detailView || !detailImage || !detailName || !detailAge || !detailQuote || !detailDescription || !detailGenderIcon) {
              console.error("Éléments de la vue détaillée non trouvés dans le DOM.");
@@ -125,10 +122,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // --- Remplir les éléments de la vue détaillée ---
-        detailImage.src = catData.imageSrc || '/assets/temp/default-cat.jpg'; // Image par défaut si non spécifiée TODO: changer
+        detailImage.src = catData.imageSrc || fromRoot('assets/images/image-default.jpg'); // Image par défaut si non spécifiée TODO: changer
         detailImage.alt = `Photo détaillée de ${catData.name}`;
 
-        detailGenderIcon.src = `/assets/icones/${catData.gender === 'male' ? 'male.png' : 'femelle.png'}`;
+        detailGenderIcon.src = `${fromRoot('assets/icones')}/${catData.gender === 'male' ? 'male.png' : 'femelle.png'}`;
         detailGenderIcon.alt = catData.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle';
 
         detailName.textContent = catData.name || "Nom inconnu"; // Valeur par défaut
@@ -152,8 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             carouselButtonsContainer.innerHTML = `
                 <ul class="pagination">
-                    <button class="carousel-prev" id="prevButton"><img src="/assets/icones/icon-arrow-2.svg"></button>
-                    <button class="carousel-next" id="nextButton"><img src="/assets/icones/icon-arrow-2.svg"></button>
+                    <button class="carousel-prev" id="prevButton"><img src="${fromRoot('assets/icones/icon-arrow-2.svg')}"></button>
+                    <button class="carousel-next" id="nextButton"><img src="${fromRoot('assets/icones/icon-arrow-2.svg')}"></button>
                 </ul>
                 `
             nextCarousel = document.querySelector(".carousel-next");
@@ -177,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function updateCarouselButtons() {
-            console.log(counter)
             prevCarousel.disabled = counter === 0;
             nextCarousel.disabled = counter === photos.length - 1;
         }
@@ -199,8 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Faire défiler la page vers le haut de la vue détaillée pour une meilleure visibilité
         detailView.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        console.log(`Affichage de la fiche pour ${catData.name}`);
     }
 
     /**
@@ -330,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (!adoptionGrid || data.length === 0 ||!data) {
             adoptionGrid.classList.add('is-empty'); 
-            const emptyImageSrc = "/assets/icones/icone-chat.png";
+            const emptyImageSrc = fromRoot("assets/icones/icone-chat.png");
             const emptyMessageText = "Il n'y a aucun chat à afficher ici";
 
             const emptyMessageHTML = `
@@ -350,12 +344,12 @@ document.addEventListener("DOMContentLoaded", () => {
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
             card.setAttribute('aria-label', `Voir la fiche de ${cat.name}`);
-            const imageSource = cat.imageSrc || '/assets/temp/default-cat.jpg';
+            const imageSource = cat.imageSrc || fromRoot('assets/images/image-default.jpg');
             // Utilisation de classes pour les images pour un ciblage CSS plus précis
             card.innerHTML = `
                 <img src="${imageSource}" alt="Photo de ${cat.name}" class="card-image">
                 <div class="page-adoption-card-text">
-                    <img src="/assets/icones/${cat.gender === 'male' ? 'male.png' : 'femelle.png'}" alt="${cat.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle'}" class="gender-icon">
+                    <img src="${fromRoot('assets/icones')}/${cat.gender === 'male' ? 'male.png' : 'femelle.png'}" alt="${cat.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle'}" class="gender-icon">
                     <span class="section-title">${cat.name}</span>
                     <span class="text">${cat.age}</span>
                     <span class="citation">${cat.quote}</span>
@@ -403,8 +397,6 @@ document.addEventListener("DOMContentLoaded", () => {
        // Désactive les DEUX boutons de pagination PENDANT la transition
        prevButton.disabled = true;
        nextButton.disabled = true;
-       console.log(`Transition page commencée vers page ${currentPage}. Boutons pagination désactivés.`);
-
        if (adoptionListSection) {
            adoptionListSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
        }
@@ -422,11 +414,9 @@ document.addEventListener("DOMContentLoaded", () => {
                adoptionGrid.classList.add('fade-in');
 
                setTimeout(() => {
-                   console.log(`Transition page terminée. Page finale: ${currentPage}.`);
                    isTransitioning = false; // Fin de la transition
                    // Met à jour l'état final des boutons de pagination
                    updatePaginationButtonStates();
-                   console.log("Boutons pagination mis à jour.");
                }, animationDuration);
 
            }, animationDuration);
@@ -436,20 +426,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
    // --- Gestion des clics sur les filtres ---
    function handleFilterClick(filterType, allData) {
-    console.log(`Clic sur filtre: ${filterType}. Filtre actuel: ${currentFilter}`);
-    if (currentFilter === filterType) {
-        // Si on clique sur le filtre déjà actif, on revient à 'Tous'
-        console.log("Filtre déjà actif, retour à 'Tous'.");
-        currentFilter = 'all';
-    } else {
-        // Sinon, on applique le nouveau filtre
-        currentFilter = filterType;
-    }
-    console.log(`Nouveau filtre actif: ${currentFilter}`);
+        if (currentFilter === filterType) {
+            // Si on clique sur le filtre déjà actif, on revient à 'Tous'
+            currentFilter = 'all';
+        } else {
+            // Sinon, on applique le nouveau filtre
+            currentFilter = filterType;
+        }
 
-    applyFilter(allData);             // 1. Filtrer les données et recalculer totalPages
-    updateFilterButtonsUI();   // 2. Mettre à jour l'apparence des boutons filtre
-    updatePage(1);             // 3. Afficher la page 1 des résultats filtrés (déclenche aussi updatePaginationButtonStates à la fin)
+        applyFilter(allData);             // 1. Filtrer les données et recalculer totalPages
+        updateFilterButtonsUI();   // 2. Mettre à jour l'apparence des boutons filtre
+        updatePage(1);             // 3. Afficher la page 1 des résultats filtrés (déclenche aussi updatePaginationButtonStates à la fin)
     }
 
     // --- Event Listeners ---
@@ -464,7 +451,6 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchAdoptionData()
         .then(fetchedData => {
             // *** Ce code s'exécute SEULEMENT APRES que fetchAdoptionData a résolu la Promise ***
-            console.log("Données reçues, initialisation de l'interface.");
 
             // 1. Stocker les données et créer la Map pour accès rapide par ID
             const allAdoptions = fetchedData; // Référence globale si nécessaire

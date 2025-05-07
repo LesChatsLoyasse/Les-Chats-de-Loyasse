@@ -7,7 +7,7 @@
         <%- include('/header.ejs') %>
 
         <script src="js/adoption.js" defer></script>
-        <script id="adoption-data" type='application/json'><%= adoptionData %></script>
+        <script id="adoption-data" type='application/json'><%- JSON.stringify(adoptionData) %></script>
 
         <section class="accueil page-adoption-top">
             <div class="page-adoption-top-text">
