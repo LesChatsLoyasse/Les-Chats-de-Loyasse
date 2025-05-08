@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <%- include('/head.ejs') %> 
+    
+    <body>
+        <%- include('/header.ejs') %>
+        
+        <!-- Accueil du site -->
+        <section class="accueil homepage">
+            <div class="accueil-text">
+                <h1 class="title">LES CHATS DE LA LOYASSE</h1>
+                <hr class="separator">
+                <p class="text">Le chat est l’animal de compagnie le plus représenté dans les foyers ;
+                malheureusement, on observe de plus en plus d’abandons et de fugues.<br>
+                À Lyon, il y a plusieurs milliers de chats errants, c’est une réalité que nous constatons quotidiennement sur le terrain.</p>
+                <p class="highlight">Les chats errants demeurent souvent invisibles aux yeux des citadins et c’est pourquoi nous sommes là pour les aider.</p></p>
+                <div class="accueil-buttons">
+                    <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.helloasso.com%2Fassociations%2Fassociation-les-chats-de-loyasse%2Fadhesions%2Fadhesion-les-chats-de-loyasse&sa=D&sntz=1&usg=AOvVaw0lGMFqls0VS19YoFy2FcKp"  target="_blank">
+                        <button class="action-button accueil-button">
+                            <img src="assets/icones/mains-coeur.png">
+                            Adherer
+                        </button>
+                    </a>
+                    <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.helloasso.com%2Fassociations%2Fassociation-les-chats-de-loyasse%2Fformulaires%2F7&sa=D&sntz=1&usg=AOvVaw3pEcGLYBDnmaPKAEy1qofB"  target="_blank">
+                        <button class="action-button accueil-button">
+                            <img src="assets/icones/piece-coeur.png">
+                            Donner
+                        </button>
+                    </a>
+                    <a href="adopter.html">
+                        <button class="action-button accueil-button">
+                            <img src="assets/icones/coeur-chat.png">
+                            Adopter
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partie adoption -->
+        <section class="adoption">
+            <section class="adoption-text checkVisibility">
+                <h2 class="subtitle">Ils vous attendent</h2>
+                <p class="text">Venez rencontrer nos petits pensionnaires en recherche d'une famille pour la vie</p>
+            </section>
+            <div class="liste-adoption">
+                <% highlightsAdoption.forEach((cat) => { %>
+                    <div class="cat-card">
+                        <img src="<%= cat.imagesSrc[0] %>" />
+                        <div class="overlay">
+                            <p><%= cat.name %></p>
+                            <img src="./assets/icones/<%= cat.gender %>.png" />
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <button class="action-button"><a href="adopter.html">EN VOIR PLUS</a></button>
+        </section>
+
+        <!-- Partie actualites -->
+        <section class="actualites">
+            <div class="news-card">
+                <h2 class="subtitle">Actualités</h2>
+                <h3 class="section-title">Opération de PAO</h3>
+                <div class="preview-text">
+                    <p>Bonjour, je m’appelle PAO. <br> Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il m‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité. »</p>
+                </div>
+                <img src="./assets/temp/adoption1.jpg">
+                <button class="action-button"><a href="nos-actions/actualites.html">EN LIRE PLUS</a></button>
+            </div>
+        </section>
+
+        <%- include('/footer.ejs') %>
+    </body>
+</html>

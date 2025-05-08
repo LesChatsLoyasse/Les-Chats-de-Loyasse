@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <%- include('/head.ejs') %> 
+    
+    <body>
+        <%- include('/header.ejs') %>
+
+        <script src="../js/nos-chats.js" defer></script>
+        <script id="news-data" type='application/json'><%- JSON.stringify(news) %></script>
+
+        <section class="accueil nouvelles-chats" id="page-nouvelles-chats">
+            <div class="accueil-text">
+                <h1 class="title">DES NOUVELLES DE NOS CHATS!</h1>
+                <hr class="separator">
+                <p class="text">Retrouvez ici des nouvelles de nos chats qui ont trouvé leur famille pour la vie !</p>
+            </div>
+        </section>
+
+        <section class="section-nouvelles-chats">
+            <div class="liste-nouvelles" id="liste-nouvelles">
+            </div>
+
+            <nav role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section">
+                <ul class="pagination">
+                <button id="prevButton" aria-label="Page précédente"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                <button id="nextButton" aria-label="Page suivante"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                </ul>
+            </nav>
+        </section>
+
+        <%- include('/footer.ejs') %>
+    </body>
+    
+</html>

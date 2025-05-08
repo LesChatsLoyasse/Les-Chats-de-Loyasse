@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <%- include('/head.ejs') %> 
+    
+    <body>
+        <%- include('/header.ejs') %>
+
+        <script src="../js/nos-chats.js" defer></script>
+        <script id="news-data" type='application/json'><%- JSON.stringify(newsRIP) %></script>
+
+        <section class="accueil chats-partis">
+            <div class="accueil-text">
+                <h1 class="title">ILS NOUS ONT QUITTÉS</h1>
+                <hr class="separator">
+                <p class="text">Chaque année, certains des chats qui sont passés par chez nous nous quittes. Que ce soit à cause de maladie ou de vieillesse, nous souhaitons conserver leur souvenir ici afin de les garder en mémoire.</p>
+            </div>
+        </section>
+
+        <section class="section-chats-partis">
+            <div class="liste-nouvelles" id="liste-nouvelles"></div>
+
+            <nav class="pagination-chats" role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section">
+                <ul class="pagination">
+                <button id="prevButton" aria-label="Page précédente"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                <button id="nextButton" aria-label="Page suivante"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                </ul>
+            </nav>
+        </section>
+
+        <%- include('/footer.ejs') %>
+    </body>
+    
+</html>
