@@ -1,3 +1,5 @@
+/* TODO: METTRE LES IMAGES EN VW ET VH */
+
 /* styles.css */
 
 /* Variables globales */
@@ -231,7 +233,7 @@ nav ul li a {
     transform: translateY(-10px);
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 15vw;
     background: var(--light-opacity-background);
     padding: 10px 0;
     min-width: 150px;
@@ -404,7 +406,7 @@ nav[role="navigation"] {
 /* top */
 
 .homepage {
-    background: url('static/images/accueil.jpg') no-repeat;
+    background: url('../assets/images/accueil.jpg') no-repeat;
     background-position: left 0 bottom 35%;
     background-size: cover; 
 }
@@ -461,8 +463,8 @@ nav[role="navigation"] {
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
     .homepage {
-        background: url('static/images/accueil-phone.jpg') no-repeat;
         background-size: cover;
+        background-position: center;
     }
 
     .accueil-text {
@@ -511,8 +513,8 @@ nav[role="navigation"] {
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
-    height: 100vh; /* Ajuste la hauteur selon ta vague */
-    background: url('static/vagues/vague-accueil-top.png');
+    height: 100%; /* Ajuste la hauteur selon ta vague */
+    background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
@@ -601,12 +603,15 @@ nav[role="navigation"] {
     max-width: 100vw;
     min-width: 100vw;
     height: 100%;
-    background: url('static/vagues/vague-accueil-bottom.png') no-repeat;
-    background-size: cover;
+    background: url('../assets/vagues/vague-accueil-bottom.png') no-repeat;
     z-index: 2; 
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
+
+    .adoption {
+        padding-bottom: 4vh;
+    }
 
     .liste-adoption {
         gap: 3vw;
@@ -632,16 +637,8 @@ nav[role="navigation"] {
     }
     
     .adoption::after {
-        display: flex;
         content: "";
-        position: absolute;
-        top: 103vh;
-        width: 100vw;
-        max-width: 100vw;
-        min-width: 100vw;
-        height: 100%;
-        background: url('static/vagues/vague-accueil-bottom.png') no-repeat;
-        z-index: 2; 
+        background: none;
     }
 }
 
@@ -649,13 +646,13 @@ nav[role="navigation"] {
 
 .actualites {
     display: flex;
-    background: url("static/images/actualites.jpg");
+    background: url("../assets/images/actualites.jpg");
     width: 100%;
     height: 130vh;
     flex-grow: 1;
     overflow: hidden;
     position: relative;
-    margin-top: 50px;
+    padding-top: 50px;
     background-size: cover; 
     background-position: right 0 top 5%;
     max-width: 100%;
@@ -724,10 +721,23 @@ nav[role="navigation"] {
     margin-bottom: 3vh;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .actualites {
+        justify-content: center;
+        padding-top: 0;
+        background-position: center;
+    }
+
+    .news-card {
+        width: 75vw;
+        margin-left: 0;
+    }
+}
+
 /* PAGE ADOPTION */
 
 .page-adoption-top {
-    background: url('static/images/adoption.jpg') no-repeat;
+    background: url('../assets/images/adoption.jpg') no-repeat;
     background-size: cover; 
     background-position: left 0 bottom 35%;
 }
@@ -781,11 +791,11 @@ nav[role="navigation"] {
     content: "";
     position: absolute;
     top: -130px; /* Ajuste cette valeur pour faire chevaucher la vague */
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
-    background: url('static/vagues/vague-accueil-top.png') no-repeat;
+    background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
 }
 
 .page-adoption-list .action-buttons {
@@ -817,6 +827,7 @@ nav[role="navigation"] {
     transition: opacity 0.5s ease-in-out; 
     min-height: 300px;
     animation: fadeIn 0.5s ease-in-out;
+    padding-bottom: 20vh;
 }
 
 /* États pour l'animation */
@@ -1119,11 +1130,71 @@ nav[role="navigation"] {
     margin-top: -100px;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .page-adoption-top {
+        background-position: right bottom;
+    }
+
+    .page-adoption-top-text {
+        padding-left: 10vw;
+        padding-right: 10vw;
+        padding-top: 0vh;
+    }
+
+    .page-adoption-grille {
+        column-gap: 2vw;
+        row-gap: 0;
+        padding: 0;
+    }
+
+    .page-adoption-list .action-buttons {
+        z-index: 10;
+    }
+
+    .page-adoption-card {
+        width: 95%;
+        height: 80%;
+        flex-direction: column-reverse;
+    }
+
+    .page-adoption-card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .citation {
+        display: none;
+    }
+
+    .page-adoption-card-text .section-title {
+        font-size: 1.5em;
+        margin-top: 15vh;
+    }
+
+    .page-adoption-card-text {
+        align-items: center;
+    }
+
+    .page-adoption-card-text img.gender-icon {
+        margin-top: 20%;
+        margin-right: 2%;
+    }
+
+    .detail-view {
+        padding-right: 5vw;
+        padding-left: 5vw;
+    }
+
+    .empty-grid-message {
+        padding-left: 5vw;
+    }
+}
+
 /* QUI SOMMES-NOUS */
 
 .qui-sommes-nous {
     margin-top: 0px;
-    background: url('static/images/qui-sommes-nous.jpg') no-repeat;
+    background: url('../assets/images/qui-sommes-nous.jpg') no-repeat;
     background-size: cover; 
 }
 
@@ -1154,11 +1225,11 @@ nav[role="navigation"] {
     content: "";
     position: absolute;
     top: 90%; /* Ajuste cette valeur pour faire chevaucher la vague */
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
-    background: url('static/vagues/vague-accueil-top.png') no-repeat;
+    background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
@@ -1207,10 +1278,33 @@ nav[role="navigation"] {
     padding-top: 50px;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .qui-sommes-nous {
+        background-position: bottom;
+    }
+
+    .text-qui-sommes-nous {
+        max-width: 100%;
+        margin-top: -40%;
+        font-size: 90%;
+    }
+
+    .list-association-actions {
+        row-gap: 10vh;
+    }
+
+    .association-action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 /* NOUS AIDER */
 
 .nous-aider {
-    background: url('static/images/nous-aider.jpg') no-repeat;
+    background: url('../assets/images/nous-aider.jpg') no-repeat;
     background-size: cover; 
     background-position: right;
     justify-content: right;
@@ -1237,11 +1331,11 @@ nav[role="navigation"] {
     content: "";
     position: absolute;
     top: -150px; /* Ajuste cette valeur pour faire chevaucher la vague */
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
-    background: url('static/vagues/vague-accueil-top.png') no-repeat;
+    background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
@@ -1257,11 +1351,11 @@ nav[role="navigation"] {
     content: "";
     position: absolute;
     top: 300px; 
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
     height: 100%;
-    background: url('static/vagues/vague-accueil-bottom.png') no-repeat;
+    background: url('../assets/vagues/vague-accueil-bottom.png') no-repeat;
     z-index: 2; 
 }
 
@@ -1350,7 +1444,7 @@ nav[role="navigation"] {
 /* Wishlist Section */
 .wishlist-section {
     position: relative; /* Contexte pour la vague ::after */
-    background-image: url("static/images/wishlist.jpg");
+    background-image: url("../assets/images/wishlist.jpg");
     background-size: cover; 
     background-position: bottom;
     height: 100vh;
@@ -1448,10 +1542,11 @@ nav[role="navigation"] {
 
 .section-don-adhesion {
     position: relative; /* Contexte pour la vague ::after */
-    background-image: url("static/images/don-adhesion.jpg");
+    background-image: url("../assets/images/don-adhesion.jpg");
     background-size: cover; 
     background-position: bottom;
     height: 100vh;
+    width: 100vw;
     padding-bottom: 65vh;
     padding-top: 50px;
     text-align: center;
@@ -1459,7 +1554,7 @@ nav[role="navigation"] {
 
 .section-don-adhesion::before {
     content: "";
-    background: url('static/vagues/vague-milieu.png') no-repeat;
+    background: url('../assets/vagues/vague-milieu.png') no-repeat;
     z-index: 2;
     display: flex;
     position: absolute;
@@ -1467,7 +1562,7 @@ nav[role="navigation"] {
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
-    height: 100vh; 
+    height: 100%; 
 }
 
 .section-don-adhesion .subtitle {
@@ -1530,6 +1625,97 @@ nav[role="navigation"] {
     width: 350px;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .nous-aider {
+        background-position: center;
+    }
+
+    .nous-aider .accueil-text {
+        max-width: 50vw;
+        font-size: 90%;
+        padding-right: 3vw;
+    }
+
+    .accueil-buttons {
+        font-size: 80%;
+    }
+
+    .nous-aider .accueil-button {
+        width: 20vw;
+        height: 15vh;
+    }
+
+    .nous-aider .accueil-buttons {
+        margin-left: -50%;
+        margin-top: 5vh;
+    }
+
+    .list-aide {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .central-cat-image {
+        display: none;
+    }
+
+    .wishlist-section {
+        padding-bottom: 60vh;
+
+    }
+
+    .wishlist-steps {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2vh;
+        margin-right: 50%;
+        gap: 3vh;
+    }
+
+    .wishlist-steps-list {
+        margin-top: 5vh;
+    }
+
+    .wishlist-steps-list img {
+        display: none;
+    }
+
+    .wishlist-visuals {
+        margin-top: 25vh;
+        margin-left: 110vw;
+    }
+
+    .qr-code-area {
+        margin-top: -20vh;
+    }
+
+    .overlay-text-box {
+        top: 30vh;
+        margin-right: 50vw;
+    }
+
+    .don-adhesion {
+        margin-top: -10vh;
+    }
+
+    .colonnes-paiement {
+        gap: 2vh;
+        flex-direction: column;
+        align-content: center;
+        font-size: 80%;
+        align-items: center;
+    }
+
+    .cheque-details {
+        width: 100%;
+    }
+
+    .text-fin {
+        padding-top: 0;
+        margin-top: -5vh;
+    }
+}
+
 
 /* PAGE CONTACT */
 
@@ -1539,7 +1725,7 @@ nav[role="navigation"] {
     position: relative;
     text-align: left;
     margin-top: 0px;
-    background: url('static/images/contact.jpg') no-repeat;
+    background: url('../assets/images/contact.jpg') no-repeat;
     background-size: cover; 
     background-position: left;
     height: 100vh;
@@ -1551,19 +1737,29 @@ nav[role="navigation"] {
 }
 
 .accueil-contact .accueil-text {
-    margin-left: -50px;
-    margin-top: -300px;
-    font-size: 1.8em;
+    font-size: 1.2em;
 }
 
 .accueil-contact .separator {
     margin-left: 0;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .accueil-contact {
+        background-position: center;
+    }
+
+    .accueil-contact .accueil-text {
+        margin-left: 0;
+        margin-top: -10vh;
+        font-size: 1.2em;
+    }
+}
+
 /* PAGE ACTIONS/ACTUALITES & ACTION/ARCHIVES */
 
 .nos-actions {
-    background: url('static/images/nos-actions-actualites.jpg') no-repeat;
+    background: url('../assets/images/nos-actions-actualites.jpg') no-repeat;
     background-size: cover; 
     background-position: right;
     justify-content: left;
@@ -1585,7 +1781,7 @@ nav[role="navigation"] {
 
 .section-actions::before {
     content: "";
-    background: url('static/images/font-nos-actions.png') no-repeat;
+    background: url('../assets/images/font-nos-actions.png') no-repeat;
     background-position: center;
     z-index: 2;
     display: flex;
@@ -1594,7 +1790,7 @@ nav[role="navigation"] {
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
-    height: 100vh; 
+    height: 100%; 
 }
 
 .section-actions {
@@ -1646,7 +1842,7 @@ nav[role="navigation"] {
 }
 
 .archives {
-    background: url('static/images/archives.jpg') no-repeat;
+    background: url('../assets/images/archives.jpg') no-repeat;
     background-size: cover; 
     background-position: right;
     justify-content: left;
@@ -1666,11 +1862,42 @@ nav[role="navigation"] {
     text-decoration: underline;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .nos-actions .accueil-text {
+        padding-top: 0;
+    }
+
+    .section-actions::before {
+        display: none;
+    }
+
+    .item-action {
+        flex-direction: column;
+        align-items: center;
+        font-size: 90%;
+        padding: 0;
+        padding-bottom: 10vh;
+    }
+
+    .item-action:nth-child(2) {
+        flex-direction: column;
+    }
+
+    .item-action img {
+        width: 80%;
+        height: auto;
+    }
+
+    .archives .accueil-text {
+        font-size: 80%;
+        padding-top: 50vh;
+    }
+}
 
 /* PAGE GAZETTE */
 
 .gazette {
-    background: url('static/images/gazette.jpg') no-repeat;
+    background: url('../assets/images/gazette.jpg') no-repeat;
     background-size: cover; 
     background-position: right;
     justify-content: left;
@@ -1720,10 +1947,22 @@ nav[role="navigation"] {
     padding-bottom: 200px;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .gazette {
+        background-position: center;
+    }
+
+    .gazette .accueil-text {
+        padding-top: 20vh;
+        padding-right: 40vw;
+        padding-left: 5vw;
+    }
+}
+
 /* PAGE NOUVELLES CHATS */
 
 .nouvelles-chats {
-    background: url('static/images/nouvelles-chats.png') no-repeat;
+    background: url('../assets/images/nouvelles-chats.png') no-repeat;
     background-color: var(--light-background-color);
     background-size: cover; 
     background-position: right;
@@ -1822,7 +2061,7 @@ nav[role="navigation"] {
 /* PAGE CHATS PARTIS */
 
 .chats-partis {
-    background: url('static/images/chats-partis.png') no-repeat;
+    background: url('../assets/images/chats-partis.png') no-repeat;
     background-color: var(--light-background-color);
     background-size: cover; 
     background-position: right;
@@ -1859,6 +2098,43 @@ nav[role="navigation"] {
     justify-self: right;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .nouvelles-chats {
+        background-position: center;
+    }
+
+    .item-news {
+        flex-direction: column;
+    }
+
+    .item-news-gallery {
+        width: 100%;
+        padding: 0;
+    }
+
+    .item-news-text {
+        padding-left: 0;
+        width: 100%;
+        font-size: 90%;
+    }
+
+    .item-news:nth-child(2) {
+        flex-direction: column;
+    }
+
+    .chats-partis {
+        background-position: left;
+    }
+
+    .chats-partis .accueil-text {
+        font-size: 80%;
+        margin-left: 0;
+        margin-right: 30vh;
+        margin-top: 25vh;
+
+    }
+}
+
 /* Footer */
 
 .footer {
@@ -1873,13 +2149,13 @@ nav[role="navigation"] {
 
 .footer::before {
     content: "";
-    background: url('static/vagues/vague-footer.png') no-repeat;
+    background: url('../assets/vagues/vague-footer.png') no-repeat;
     z-index: 2;
     display: flex;
     position: absolute;
     top: -150px; /* Ajuste cette valeur pour faire chevaucher la vague */
-    max-width: 100%;
-    min-width: 100%;
+    max-width: 100vw;
+    min-width: 100vw;
     height: 100%; 
 }
 
@@ -1945,6 +2221,39 @@ nav[role="navigation"] {
     text-decoration: underline;
 }
 
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+    .footer-content img {
+        width: 25vw;
+        height: 25vh;
+    }
+
+    .footer::before {
+        top: -15vh;
+    }
+
+    .contact {
+        margin-left: 5vw;
+        display: flex;
+        flex-direction: column;
+        gap: 3vh;
+        padding-bottom: 4vh;
+    }
+    
+    .contact img {
+        width: 4vh;
+        height: auto;
+    }
+
+    .contact-link {
+        gap: 0px;
+        font-size: 80%;
+    }
+
+    .socials img {
+        width: 70%;
+    }
+}
+
 /* Animations */
 
 .visible {
@@ -1956,6 +2265,7 @@ nav[role="navigation"] {
 
 .title-slider {
     font-size: 1.3em;
+    overflow: hidden;
 }
 
 .slider {
@@ -1963,7 +2273,8 @@ nav[role="navigation"] {
     padding-top: 2vh;
     height: 7.35vh;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
     margin-left: 2px;
     display: inline-block;
     vertical-align: baseline;
@@ -1976,6 +2287,12 @@ nav[role="navigation"] {
     animation: slide 14s linear infinite;
     color: #f5f5f5;
     box-sizing: border-box;
+ }
+
+ @media only screen and (min-width : 320px) and (max-width : 767px) {
+    .title-slider {
+        font-size: 0.8em;
+    }
  }
 
 .slider-word:nth-child(2) { animation-delay: 2s; }

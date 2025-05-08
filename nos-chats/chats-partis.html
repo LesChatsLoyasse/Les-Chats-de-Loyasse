@@ -1,75 +1,82 @@
 <!DOCTYPE html>
+
 <html lang="fr">
-<head>
-<link rel="stylesheet" href="index.css">
+    <head>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="icon" href="../assets/logo/logo.png"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Chats de Loyasse</title>
-    <link rel="stylesheet" href="../index.css">
-</head>
-<body>
-    <script src="../script.js" defer></script>
-    <script src="../nos-chats-script.js" defer></script>
-    <!-- Barre de navigation -->
-    <header id="header">
-        <nav id="nav-placeholder">
-            <div class="logo"> <img src="../static/logo/logo.png" alt="Logo Association"> </div>
-            <ul>
-                <li><a href="../index.html">Accueil</a></li>
-                <li><a href="../adopter.html">Adopter</a></li>
-                <li><a href="../qui-sommes-nous.html">Qui sommes nous ?</a></li>
-                <li class="dropdown"><a href="#">Nos chats<img src="../static/icones/arrow.png"></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../nos-chats/nouvelles-chats.html">Des nouvelles de nos chats</a></li>
-                        <li><a href="../nos-chats/chats-partis.html">Ils nous ont quittés</a></li>
-                    </ul>
-                </li>
-                <li><a href="../nous-aider.html">Nous aider</a></li>
-                <li class="dropdown"><a href="#">Nos actions<img src="../static/icones/arrow.png"></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="actualites.html">Nos actions récentes</a></li>
-                        <li><a href="archives.html">Archives</a></li>
-                        <li><a href="gazette.html">Gazette</a></li>
-                    </ul>
-                </li>
-                <li><a href="../contact.html">Contacts</a></li>
-            </ul>
-        </nav>
-    </header>
+    <script src="../js/mobile.js" defer></script>
+    <script id="relative-root" type='text/plain'>../</script>
+</head> 
+    
+    <body>
+        <header id="header">
+    <nav id="nav-placeholder">
+        <div class="logo"> <img src="../assets/logo/logo.png" alt="Logo Association"> </div>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../adopter.html">Adopter</a></li>
+            <li><a href="../qui-sommes-nous.html">Qui sommes nous ?</a></li>
+            <li class="dropdown"><a href="#">Nos chats<img src="../assets/icones/arrow.png"></a>
+                <ul class="dropdown-menu">
+                    <li><a href="../nos-chats/nouvelles-chats.html">Des nouvelles de nos chats</a></li>
+                    <li><a href="../nos-chats/chats-partis.html">Ils nous ont quittés</a></li>
+                </ul>
+            </li>
+            <li><a href="../nous-aider.html">Nous aider</a></li>
+            <li class="dropdown"><a href="#">Nos actions<img src="../assets/icones/arrow.png"></a>
+                <ul class="dropdown-menu">
+                    <li><a href="../nos-actions/actualites.html">Nos actions récentes</a></li>
+                    <li><a href="../nos-actions/archives.html">Archives</a></li>
+                    <li><a href="../nos-actions/gazette.html">Gazette</a></li>
+                </ul>
+            </li>
+            <li><a href="../contact.html">Contacts</a></li>
+        </ul>
+    </nav>
+</header>   
 
-    <section class="accueil chats-partis">
-        <div class="accueil-text">
-            <h1 class="title">ILS NOUS ONT QUITTÉS</h1>
-			  <hr class="separator">
-            <p class="text">Chaque année, certains des chats qui sont passés par chez nous nous quittes. Que ce soit à cause de maladie ou de vieillesse, nous souhaitons conserver leur souvenir ici afin de les garder en mémoire.</p>
-        </div>
-    </section>
+        <script src="../js/nos-chats.js" defer></script>
+        <script id="news-data" type='application/json'>[{"id":1,"title":"La petite Coralie","description":"À 10h30, Petite Coralie s’en est allée.  Petite Coralie était une minette des rues, toute noire, fragile et courageuse. Elle vivait dans un coin de verdure, entourée d’autres chats noirs comme elle. Là, une main fidèle et bienveillante, celle de Lucyna, venait chaque jour leur apporter à manger et un peu de réconfort. Un jour, Coralie est tombée gravement malade. Notre association a alors tout mis en œuvre pour lui offrir une chance. Elle a d’abord été accueillie à l’Appartement des Chats, un lieu de repos et de soins. Puis, elle a eu la chance de trouver un foyer chaleureux en famille d’accueil chez Julie et Éric, qui lui ont offert de la douceur, de la chaleur, des attentions, tout ce qu’un petit cœur peut recevoir. Quand son état s’est aggravé, elle a été hospitalisée chez le vétérinaire. Nous l’avons entourée autant que possible, jusqu’à son dernier souffle. À 10h30, Petite Coralie s’en est allée, discrètement, comme elle a vécu. Elle s’est envolée vers le paradis des chats — cet ailleurs paisible où l’on ne souffre plus, où l’on court librement sous le soleil, entre les herbes hautes et les arbres tranquilles. La vie des rues est tellement difficile. Nous n’avons pas toujours le pouvoir de les sauver, malgré nos efforts, notre engagement, notre amour. Parfois, peut-être, la fin n’est pas une défaite. C’est une main ou une patte qu’on tient, une présence jusqu’au bout, une tendresse offerte quand tout vacille. Au revoir, petite Coralie.","imagesSrc":["https://lh3.googleusercontent.com/d/1TsWwKMtREekTwWZBWIzmLb5_kwOPXFHN","https://lh3.googleusercontent.com/d/1NbUOTNGtWaFfGvJZh1BWYAUjg7jQVs5F","https://lh3.googleusercontent.com/d/1gtvrVmoOsorU4NGVC2c2FMwAY_LWvqvG"]},{"id":2,"title":"Courageuse Daisy ❤️‍🩹","description":"Daisy, courageuse et douce Daisy, petite minette des rues recueillie par l’association à l’âge d’un an dans un très mauvais état de santé… Nous l’avons entourée d’amour et de bons soins, mais la maladie a eu raison d’elle. Lorsque nous l’avons recueillie, elle a tout de suite fait confiance et aimé les humains qui se sont occupés d’elle ! Elle adorait être brossée, elle a rapidement aimé la chaleur et le confort d’un intérieur chaud et moelleux. Elle a même appris à jouer et à profiter de la vie. Daisy avait énormément d’amour à donner ! Elle ronronnait comme tout dès que l’on s’approchait d’elle, avant même que l’on ait commencé à la caresser. Elle a fait le bonheur de tous les humains qui ont croisé son chemin, notamment Stéphane, Nina et Béatrice, et même les vétérinaires, et les assistantes vétérinaires ! Un ange notre Daisy… Nous lui avons donné de l’amour et des soins pour qu’elle puisse un jour connaître la joie d’un foyer définitif… Elle n’avait que deux ans lorsqu’elle nous a quitté, elle laisse un grand vide auprès de ceux qui l’ont connu, elle avait tant d’amour à donner. Repose en paix notre Daisy, loin de la maladie et la souffrance.","imagesSrc":["https://lh3.googleusercontent.com/d/1IJKGeX9RRUiJQ6Q_eq-CBNZYFEwFNJ8I","https://lh3.googleusercontent.com/d/18xMomDDtbkUu09HAhAbJQsSKldTQhfmQ","https://lh3.googleusercontent.com/d/1BAXGU097k7WAN8GS81wS8AfDv8DAsNJ8",""]},{"id":3,"title":"Une nouvelle étoile 🌟","description":"C’est avec grande tristesse que nous vous annonçons le décès de notre Beau Moët, recueilli par l’association suite à un abandon. Par sa présence, il a ensoleillé les journées de sa nounou Madeleine qu’il a aimée dès le premier jour de leur rencontre. Malgré son abandon, Moët n’était pas rancunier envers l’humain au contraire… C’est une belle leçon de vie qu’il a donnée. Nous nous rappellerons ses « miaulis » assez particuliers, sa prestance et surtout sa gentillesse. Merci à toi Madeleine pour tout l’Amour et les bons soins que tu as apportés à notre Moët le Magnifique.","imagesSrc":["https://lh3.googleusercontent.com/d/1KdxkX6wilXthfv47zKQMMRZVUGhfc-oG","https://lh3.googleusercontent.com/d/1oCrApedILwBosioMv5HCGsEK3iIlxpt2"]},{"id":4,"title":"Smoky","description":"Je m’appelais SMOKY, J’étais un chat des rues. J’étais un beau chat noir âgé de deux ans. Pendant ces deux ans de ma vie, mes Nourricières se sont bien occupées de moi et je les en remercie. Je suis tombé malade, quelle maladie ? On ne sait pas ! Malgré des examens poussés, on a rien trouvé. Je me suis endormi pour rejoindre les étoiles… Entouré d’amour. Frédéric et Delphine ont bien pris soin de moi. Maintenant je suis ailleurs, serein, en paix !!! Qu’en est-il de mes congénères qui continuent à vivre dans la souffrance… Je ne suis pas mort dans l’ignorance, Sous une voiture, dans un buisson ou autres, livré à la vermine. Si seulement chacun de vous qui lisez ces quelques phrases pouvait tendre la main à mes sœurs et frères dans le besoin.","imagesSrc":["https://lh3.googleusercontent.com/d/1zHP31ncBXvzIKGP66-itjrea1WVHACOA"]},{"id":5,"title":"Adieu Grisette","description":"Grisette aurait pu donner de la joie dans un foyer, Grisette aurait pu jouer avec les enfants de ce foyer, Grisette aurait pu être douce et sauvage à la fois tout en donnant de l’amour… Malheureusement, il n’en est rien, Grisette a vécu dans la rue depuis sa naissance, invisible aux yeux des humains, au quotidien ne mangeant pas à sa faim, affrontant le froid, la pluie et tous les autres dangers : 15 ans de galère, 15 ans de misère… Pour son bonheur, elle a croisé la route de Muriel qui a su prendre soin d’elle… et lui apporter du bonheur pendant 2 ans. Grisette a pu être nourrie tous les jours, a pu être à l’abri des intempéries, a été soignée, Grisette a été choyée par sa bonne Fée Muriel. Ce matin, Grisette s’en est allée au paradis des chats. C’est un endroit magique où tous les chats ont suffisamment de nourriture, où les chats sont bien et ne craignent rien. Bon voyage Grisette.","imagesSrc":["https://lh3.googleusercontent.com/d/1eQ8iJzwmwHLgoIRzxq47D7Msb2WobIwY"]}]</script>
 
-    <section class="section-chats-partis">
-        <div class="liste-nouvelles" id="liste-nouvelles"></div>
+        <section class="accueil chats-partis">
+            <div class="accueil-text">
+                <h1 class="title">ILS NOUS ONT QUITTÉS</h1>
+                <hr class="separator">
+                <p class="text">Chaque année, certains des chats qui sont passés par chez nous nous quittes. Que ce soit à cause de maladie ou de vieillesse, nous souhaitons conserver leur souvenir ici afin de les garder en mémoire.</p>
+            </div>
+        </section>
 
-        <nav class="pagination-chats" role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section">
-            <ul class="pagination">
-               <button id="prevButton" aria-label="Page précédente"><img src="../static/icones/icon-arrow-2.svg"></button>
-               <button id="nextButton" aria-label="Page suivante"><img src="../static/icones/icon-arrow-2.svg"></button>
-            </ul>
-        </nav>
-    </section>
+        <section class="section-chats-partis">
+            <div class="liste-nouvelles" id="liste-nouvelles"></div>
 
-    <!-- Partie contact -->
-    <div class="footer">
-        <div class="footer-content">
-        <img src="../static/logo/logo-footer.png" alt="Logo Association">
-            <section class="contact">
-                <div class="contact-link"><img src="../static/icones/address.png"><p>3, rue Cardinal Gerlier, 69005 LYON</p></div>
-                <div class="contact-link"><img src="../static/icones/phone.png"><p>06 77 61 45 11</p></div>
-                <div class="contact-link"><img src="../static/icones/mail.png"><p>chats.loyasse@gmail.com</p></div>
-                <div class="contact-link">
-                    <div class="socials">
-                        <a href="https://www.facebook.com/p/Association-Les-Chats-de-Loyasse-100064752067295/?locale=fr_FR"  target="_blank"><img src="../static/icones/facebook.png"></a>
-                        <a href="https://www.instagram.com/leschatsdeloyasse/"  target="_blank"><img src="../static/icones/instagram.png"></a>
-                    </div>
-            </section>
-        </div>
-        <a href="https://www.journal-officiel.gouv.fr/pages/associations-detail-annonce/?q.id=id:201700211063"  target="_blank">Statut legal</a>
+            <nav class="pagination-chats" role="nav-pagination" aria-label="Pagination des adoptions" id="pagination-section">
+                <ul class="pagination">
+                <button id="prevButton" aria-label="Page précédente"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                <button id="nextButton" aria-label="Page suivante"><img src="../assets/icones/icon-arrow-2.svg"></button>
+                </ul>
+            </nav>
+        </section>
+
+        <div class="footer">
+    <div class="footer-content">
+    <img src="../assets/logo/logo-footer.png" alt="Logo Association">
+        <section class="contact">
+            <div class="contact-link"><img src="../assets/icones/address.png"><p>3, rue Cardinal Gerlier, 69005 LYON</p></div>
+            <div class="contact-link"><img src="../assets/icones/phone.png"><p>06 77 61 45 11</p></div>
+            <div class="contact-link"><img src="../assets/icones/mail.png"><p>chats.loyasse@gmail.com</p></div>
+            <div class="contact-link">
+                <div class="socials">
+                    <a href="https://www.facebook.com/p/Association-Les-Chats-de-Loyasse-100064752067295/?locale=fr_FR"  target="_blank"><img src="../assets/icones/facebook.png"></a>
+                    <a href="https://www.instagram.com/leschatsdeloyasse/"  target="_blank"><img src="../assets/icones/instagram.png"></a>
+                </div>
+        </section>
     </div>
+    <a href="https://www.journal-officiel.gouv.fr/pages/associations-detail-annonce/?q.id=id:201700211063"  target="_blank">Statut legal</a>
+</div>
+
+    </body>
+    
+</html>

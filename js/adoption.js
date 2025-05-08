@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+var fromRoot = path => { return document.getElementById('relative-root').textContent + path};
 
+document.addEventListener("DOMContentLoaded", () => {
     // --- Configuration ---
     let currentPage = 1;
     const cardsPerPage = 6;
@@ -44,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const carouselPhotosContainer = document.getElementById('carouselPhotosContainer');
     const carouselButtonsContainer = document.getElementById('carouselButtonsContainer');
     const imageWidth = 400;
-    let photos = [];
     // Section parente pour le scroll (optionnel, si besoin de scroller vers le haut de la section grille)
 
     // --- Vérification initiale des éléments DOM essentiels ---
@@ -57,39 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fonction pour obtenir TOUTES les données (simulé ici)
     function getAllAdoptionData() {
-        // Ajout de plus de données pour bien tester la pagination
-        return [
-            { id: "1", name: "BLAA", age: "8 ans", quote: '"J\'aime les humains et être proche d\'eux"', gender: "male", imageSrc: "static/temp/adoption1.jpg", photos: "static/temp/adoption1.jpg static/temp/adoption1.jpg static/temp/adoption1.jpg static/temp/adoption1.jpg static/temp/adoption1.jpg static/temp/adoption1.jpg static/temp/adoption1.jpg static/temp/adoption1.jpg", description: "Blablabla est un chat d'un calme olympien, Blablabla est un chat d'un calme olympien,Blablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympien Blablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympien" },
-            { id: "2", name: "Tanguy", age: "3 ans", quote: '"Je suis douce et câline."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "3", name: "Rocky", age: "2 an", quote: '"J\'adore jouer et explorer!"', gender: "male", imageSrc: "static/temp/adoption2.jpg", description: "Rocky est un jeune chat plein d'énergie..." },
-            { id: "4", name: "Sophie", age: "7 ans", quote: '"J\'aime les siestes au soleil."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "5", name: "Max", age: "4 ans", quote: '"Toujours prêt pour une aventure."', gender: "male", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "5", name: "Chloe", age: "6 ans", quote: '"Je suis très attachée à ma famille."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "6", name: "Misty", age: "4 ans", quote: '"J\'aime observer le monde depuis une fenêtre."', gender: "femelle" },
-            { id: "7", name: "Marty", age: "8 ans", quote: '"J\'aime les humains et être proche d\'eux"', gender: "male", imageSrc: "", description: "Marty est un chat d'un calme olympien..." },
-            { id: "8", name: "Luna", age: "3 ans", quote: '"Je suis douce et câline."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "9", name: "Rocky", age: "12 an", quote: '"J\'adore jouer et explorer!"', gender: "male", imageSrc: "static/temp/adoption2.jpg", description: "Rocky est un jeune chat plein d'énergie..." },
-            { id: "10", name: "Sophie", age: "7 ans", quote: '"J\'aime les siestes au soleil."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "11", name: "Max", age: "4 ans", quote: '"Toujours prêt pour une aventure."', gender: "male", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "12", name: "Chloe", age: "6 ans", quote: '"Je suis très attachée à ma famille."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "13", name: "Simba", age: "10 ans", quote: '"Un vieux sage plein d\'amour."', gender: "male", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "14", name: "Mia", age: "10", quote: '"J\'ai beaucoup d\'énergie à dépenser."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "15", name: "Garfield", age: "5 ans", quote: '"Lasagnes et siestes, que demander de plus ?"', gender: "male", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-            { id: "16", name: "Nala", age: "8", quote: '"Exploratrice dans l\'âme."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "" },
-            { id: "17", name: "Felix", age: "3 ans", quote: '"Un peu timide mais très affectueux une fois en confiance."', gender: "male", imageSrc: "static/temp/adoption2.jpg", description: "Luna est une boule d'amourrrrrrrrrrrrrrrrrrrrrr" },
-            { id: "18", name: "Misty", age: "4", quote: '"J\'aime observer le monde depuis une fenêtre."', gender: "femelle", imageSrc: "static/temp/adoption1.jpg", description: "Luna est une boule d'amour..." },
-        ];
+        return JSON.parse(document.getElementById('adoption-data').textContent);
     }
 
     // NOUVELLE fonction qui simule une récupération (asynchrone)
     function fetchAdoptionData() {
-        console.log("Récupération des données d'adoption...");
         return new Promise((resolve, reject) => {
             // Simule un délai réseau (ex: 300ms) pour imiter un appel serveur
             setTimeout(() => {
                 try {
                     const data = getAllAdoptionData(); // Pour l'instant, on prend nos données locales
-                    console.log(`Données récupérées (simulation) : ${data.length} éléments.`);
                     resolve(data); // La Promise réussit et renvoie les données
                 } catch (error) {
                     console.error("Erreur lors de la récupération simulée des données :", error);
@@ -125,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {string} catId L'ID unique du chat à afficher.
      */
     function showDetailView(catId) {
-        console.log(`Affichage détail pour catId: ${catId}`);
+        let photos = []; 
 
         // Vérification si les éléments DOM de la vue détail existent
         if (!detailView || !detailImage || !detailName || !detailAge || !detailQuote || !detailDescription || !detailGenderIcon) {
@@ -144,21 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // --- Remplir les éléments de la vue détaillée ---
-        detailImage.src = catData.imageSrc || 'static/temp/default-cat.jpg'; // Image par défaut si non spécifiée TODO: changer
+        detailImage.src = catData.imagesSrc[0] || fromRoot('assets/images/image-default.jpg'); // Image par défaut si non spécifiée TODO: changer
         detailImage.alt = `Photo détaillée de ${catData.name}`;
-
-        detailGenderIcon.src = `static/icones/${catData.gender === 'male' ? 'male.png' : 'femelle.png'}`;
+        detailGenderIcon.src = `${fromRoot('assets/icones')}/${catData.gender === 'male' ? 'male.png' : 'femelle.png'}`;
         detailGenderIcon.alt = catData.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle';
-
-        detailName.textContent = catData.name || "Nom inconnu"; // Valeur par défaut
+        detailName.textContent = catData.name || "Nom inconnu";
         detailAge.textContent = catData.age || "Age inconnu";
-        detailQuote.textContent = catData.quote || ""; // Citation vide si non fournie
+        detailQuote.textContent = catData.quote || "";
 
-        photos = catData.photos;
-
-        if (photos && photos.length > 0) {
-            photos = catData.photos.split(" ")
+        if (catData.imagesSrc.length > 1) {
+            photos = catData.imagesSrc.slice(1)
 
             photos.forEach(photo => {
                 const catPhoto = document.createElement("div");
@@ -172,8 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             carouselButtonsContainer.innerHTML = `
                 <ul class="pagination">
-                    <button class="carousel-prev" id="prevButton"><img src="static/icones/icon-arrow-2.svg"></button>
-                    <button class="carousel-next" id="nextButton"><img src="static/icones/icon-arrow-2.svg"></button>
+                    <button class="carousel-prev" id="prevButton"><img src="${fromRoot('assets/icones/icon-arrow-2.svg')}"></button>
+                    <button class="carousel-next" id="nextButton"><img src="${fromRoot('assets/icones/icon-arrow-2.svg')}"></button>
                 </ul>
                 `
             nextCarousel = document.querySelector(".carousel-next");
@@ -187,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 carouselPhotos.style.transform = `translateX(${-imageWidth * counter}px)`;
                 updateCarouselButtons();
             });
-        
+
             prevCarousel.addEventListener("click", () => {
                 if (counter <= 0) return;
                 counter--;
@@ -197,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function updateCarouselButtons() {
-            console.log(counter)
             prevCarousel.disabled = counter === 0;
             nextCarousel.disabled = counter === photos.length - 1;
         }
@@ -219,8 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Faire défiler la page vers le haut de la vue détaillée pour une meilleure visibilité
         detailView.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        console.log(`Affichage de la fiche pour ${catData.name}`);
     }
 
     /**
@@ -274,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => { ... });
     */
-    
+
 
     // --- Logique de Filtrage ---
 
@@ -295,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return false; // Format non reconnu
     }
     // Applique le filtre actuel aux données globales
-    
+
     function applyFilter(allData) {
         if (!allData) {
             console.error("applyFilter appelée sans données!");
@@ -347,10 +316,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderAdoptionCards(data) {
         adoptionGrid.innerHTML = ""; // Efface le contenu précédent
         if (allData) {  adoptionGrid.classList.remove('is-empty');  }
-        
+
         if (!adoptionGrid || data.length === 0 ||!data) {
-            adoptionGrid.classList.add('is-empty'); 
-            const emptyImageSrc = "static/icones/icone-chat.png";
+            adoptionGrid.classList.add('is-empty');
+            const emptyImageSrc = fromRoot("assets/icones/icone-chat.png");
             const emptyMessageText = "Il n'y a aucun chat à afficher ici";
 
             const emptyMessageHTML = `
@@ -370,12 +339,12 @@ document.addEventListener("DOMContentLoaded", () => {
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
             card.setAttribute('aria-label', `Voir la fiche de ${cat.name}`);
-            const imageSource = cat.imageSrc || 'static/temp/default-cat.jpg';
+            const imageSource = cat.imagesSrc[0] || fromRoot('assets/images/image-default.jpg');
             // Utilisation de classes pour les images pour un ciblage CSS plus précis
             card.innerHTML = `
                 <img src="${imageSource}" alt="Photo de ${cat.name}" class="card-image">
                 <div class="page-adoption-card-text">
-                    <img src="static/icones/${cat.gender === 'male' ? 'male.png' : 'femelle.png'}" alt="${cat.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle'}" class="gender-icon">
+                    <img src="${fromRoot('assets/icones')}/${cat.gender === 'male' ? 'male.png' : 'femelle.png'}" alt="${cat.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle'}" class="gender-icon">
                     <span class="section-title">${cat.name}</span>
                     <span class="text">${cat.age}</span>
                     <span class="citation">${cat.quote}</span>
@@ -393,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
         prevButton.disabled = isTransitioning || currentPage <= 1;
         nextButton.disabled = isTransitioning || currentPage >= totalPages;
          // console.log(`Update Pagination Buttons: Prev disabled=${prevButton.disabled}, Next disabled=${nextButton.disabled}`);
-        if (totalPages < 2) { 
+        if (totalPages < 2) {
             paginationNav.classList.add('hidden')
         } else {
             paginationNav.classList.remove('hidden')
@@ -423,8 +392,6 @@ document.addEventListener("DOMContentLoaded", () => {
        // Désactive les DEUX boutons de pagination PENDANT la transition
        prevButton.disabled = true;
        nextButton.disabled = true;
-       console.log(`Transition page commencée vers page ${currentPage}. Boutons pagination désactivés.`);
-
        if (adoptionListSection) {
            adoptionListSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
        }
@@ -442,11 +409,9 @@ document.addEventListener("DOMContentLoaded", () => {
                adoptionGrid.classList.add('fade-in');
 
                setTimeout(() => {
-                   console.log(`Transition page terminée. Page finale: ${currentPage}.`);
                    isTransitioning = false; // Fin de la transition
                    // Met à jour l'état final des boutons de pagination
                    updatePaginationButtonStates();
-                   console.log("Boutons pagination mis à jour.");
                }, animationDuration);
 
            }, animationDuration);
@@ -456,20 +421,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
    // --- Gestion des clics sur les filtres ---
    function handleFilterClick(filterType, allData) {
-    console.log(`Clic sur filtre: ${filterType}. Filtre actuel: ${currentFilter}`);
-    if (currentFilter === filterType) {
-        // Si on clique sur le filtre déjà actif, on revient à 'Tous'
-        console.log("Filtre déjà actif, retour à 'Tous'.");
-        currentFilter = 'all';
-    } else {
-        // Sinon, on applique le nouveau filtre
-        currentFilter = filterType;
-    }
-    console.log(`Nouveau filtre actif: ${currentFilter}`);
+        if (currentFilter === filterType) {
+            // Si on clique sur le filtre déjà actif, on revient à 'Tous'
+            currentFilter = 'all';
+        } else {
+            // Sinon, on applique le nouveau filtre
+            currentFilter = filterType;
+        }
 
-    applyFilter(allData);             // 1. Filtrer les données et recalculer totalPages
-    updateFilterButtonsUI();   // 2. Mettre à jour l'apparence des boutons filtre
-    updatePage(1);             // 3. Afficher la page 1 des résultats filtrés (déclenche aussi updatePaginationButtonStates à la fin)
+        applyFilter(allData);             // 1. Filtrer les données et recalculer totalPages
+        updateFilterButtonsUI();   // 2. Mettre à jour l'apparence des boutons filtre
+        updatePage(1);             // 3. Afficher la page 1 des résultats filtrés (déclenche aussi updatePaginationButtonStates à la fin)
     }
 
     // --- Event Listeners ---
@@ -484,12 +446,11 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchAdoptionData()
         .then(fetchedData => {
             // *** Ce code s'exécute SEULEMENT APRES que fetchAdoptionData a résolu la Promise ***
-            console.log("Données reçues, initialisation de l'interface.");
 
             // 1. Stocker les données et créer la Map pour accès rapide par ID
             const allAdoptions = fetchedData; // Référence globale si nécessaire
             allAdoptionsDataMap = new Map(allAdoptions.map(cat => [cat.id, cat]));
-            
+
             // 2. Attacher les listeners qui dépendent des données ou de l'état initial
             filterAllButton.addEventListener('click', () => handleFilterClick('all', allAdoptions)); // Passe les données
             filterAdultesButton.addEventListener('click', () => handleFilterClick('adultes', allAdoptions));
