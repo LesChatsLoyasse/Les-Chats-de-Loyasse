@@ -514,7 +514,7 @@ nav[role="navigation"] {
     max-width: 100vw;
     min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
-    background: url('../assets/vagues/vague-accueil-top.png');
+    background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
