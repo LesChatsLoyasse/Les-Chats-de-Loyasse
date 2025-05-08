@@ -8,6 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: github-pages
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -25,7 +26,7 @@ jobs:
         run: npm run build
         env: 
           GSHEETS_API_KEY: ${{ secrets.GSHEETS_API_KEY }}
-          GSHEETS_SPREADSHEET_ID: ${{ secrets.GSHEETS_SPREADSHEETS_ID }}
+          GSHEETS_SPREADSHEET_ID: ${{ secrets.GSHEETS_SPREADSHEET_ID }}
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
