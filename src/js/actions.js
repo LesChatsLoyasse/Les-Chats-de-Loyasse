@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.dataset.actionId = action.id;
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
-            const imageSource = action.imageSrc || fromRoot('assets/images/image-default.jpg');
+            const imageSource = action.imagesSrc[0] || fromRoot('assets/images/image-default.jpg');
             // Utilisation de classes pour les images pour un ciblage CSS plus précis
             card.innerHTML = `
                 <div class="item-action-text">

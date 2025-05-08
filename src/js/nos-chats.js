@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Rendering ---
     function renderNewsCards(data) {
         nouvellesList.innerHTML = ""; // Efface le contenu précédent
-    
+
         console.log(data)
         if (!data || data.length === 0) {
             const emptySrc = fromRoot('assets/icones/icone-chat.png');
@@ -92,19 +92,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         data.forEach(news => {
             const card = document.createElement("div");
+            let galleryHTML = ''; // Initialiser le HTML pour la galerie
+
+            card.dataset.newsId = news.id;
             card.classList.add("item-news");
             if (Number(news.id) % 2 == 0) {
                 card.classList.add("paire");
             }
-            card.dataset.newsId = news.id;
             card.setAttribute('role', 'article');
-    
-            const photos = news.imageSrc || []; // Assure que photos est un tableau, même si imageSrc est null/undefined
-    
-            let galleryHTML = ''; // Initialiser le HTML pour la galerie
-    
+
+            const photos = news.imagesSrc || [];
+
             // --- Création du HTML pour le carrousel si des photos existent ---
-            // Le carrousel affichera MAINTENANT TOUTES les photos s'il y en a plus d'une
             if (photos.length > 0) { // On crée le conteneur de galerie s'il y a au moins une photo
                 galleryHTML = `
                     <div class="item-news-gallery">
@@ -115,8 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${photos.length > 1 ? `
                             <div class="carousel-buttons-container">
                                 <ul class="pagination">
-                                    <button class="carousel-prev" id="prevButton" aria-label="Photo précédente de la galerie"><img src="${fromRoot('assets/icones/icon-arrow-2.svg')}" alt=""></button>
-                                    <button class="carousel-next" id="nextButton" aria-label="Photo suivante de la galerie"><img src="${fromRoot('assets/icones/icon-arrow-2.svg')}" alt=""></button>
+                                    <button class="carousel-prev" id="prevButton" aria-label="Photo précédente de la galerie">
+                                        <img src="${fromRoot('assets/icones/icon-arrow-2.svg')}" alt="">
+                                    </button>
+                                    <button class="carousel-next" id="nextButton" aria-label="Photo suivante de la galerie">
+                                        <img src="${fromRoot('assets/icones/icon-arrow-2.svg')}" alt="">
+                                    </button>
                                 </ul>
                             </div>
                             ` : ''}
@@ -131,8 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      </div>
                  `;
             }
-    
-    
+
             // --- Construction de la carte complète ---
             card.innerHTML = `
                         <div class="item-news-text">
@@ -141,9 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                         ${galleryHTML}
             `;
-    
+
             nouvellesList.appendChild(card);
-    
+
             // --- Initialisation du carrousel de la galerie SI nécessaire (plus d'une photo) ---
             if (photos.length > 1) {
                 const galleryContainer = card.querySelector('.gallery-carousel-container');
@@ -151,19 +153,19 @@ document.addEventListener("DOMContentLoaded", () => {
                      console.error("Conteneur de galerie introuvable pour la carte:", news.id);
                      return;
                 }
-    
+
                 const track = galleryContainer.querySelector('.gallery-carousel-track');
                 const prevButton = galleryContainer.querySelector('.carousel-prev');
                 const nextButton = galleryContainer.querySelector('.carousel-next');
                 const slides = Array.from(track.children); // Les divs .gallery-carousel-photo
-    
+
                 // S'assurer que les slides ont une largeur définie pour le calcul
                 slides.forEach(slide => {
                     slide.style.width = '100%'; // Chaque slide prendra 100% de la largeur du conteneur
                     slide.style.flexShrink = 0; // Empêche le rétrécissement des slides
                 });
-    
-    
+
+
                 let imageWidth = galleryContainer.offsetWidth;
                 if (imageWidth === 0) {
                      console.warn("Largeur du conteneur de galerie nulle lors de l'initialisation pour la carte:", news.id);
@@ -172,13 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
                      if (nextButton) nextButton.style.display = 'none';
                      return;
                 }
-    
+
                 let counter = 0; // Compteur spécifique à CE carrousel de galerie
-    
+
                 track.style.transform = `translateX(0px)`; // Position initiale
                  track.style.display = 'flex'; // Utiliser flexbox pour aligner les slides horizontalement
                  track.style.transition = 'transform 0.5s ease-in-out'; // Ajouter une transition
-    
+
                 const updateCarouselButtons = () => {
                     if (!prevButton || !nextButton) return;
                     prevButton.disabled = counter === 0;
@@ -186,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     prevButton.classList.toggle('disabled', counter === 0);
                     nextButton.classList.toggle('disabled', counter === slides.length - 1);
                 };
-    
+
                 nextButton.addEventListener('click', () => {
                     if (counter >= slides.length - 1) return;
                     counter++;
@@ -194,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     track.style.transform = `translateX(-${imageWidth * counter}px)`;
                     updateCarouselButtons();
                 });
-    
+
                 prevButton.addEventListener("click", () => {
                     if (counter <= 0) return;
                     counter--;
@@ -202,9 +204,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     track.style.transform = `translateX(-${imageWidth * counter}px)`;
                     updateCarouselButtons();
                 });
-    
+
                 updateCarouselButtons(); // État initial
-    
+
                 // Gestion du redimensionnement pour la galerie
                 window.addEventListener('resize', () => {
                      // Vérifier si le conteneur est toujours dans le DOM et visible
@@ -213,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         // window.removeEventListener('resize', ...);
                         return;
                     }
-    
+
                     imageWidth = galleryContainer.offsetWidth;
                     if (imageWidth > 0) {
                          track.style.transition = 'none'; // Désactiver la transition pendant le redimensionnement
@@ -239,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
         prevButton.disabled = isTransitioning || currentPage <= 1;
         nextButton.disabled = isTransitioning || currentPage >= totalPages;
          // console.log(`Update Pagination Buttons: Prev disabled=${prevButton.disabled}, Next disabled=${nextButton.disabled}`);
-        if (totalPages < 2) { 
+        if (totalPages < 2) {
             paginationNav.classList.add('hidden')
         } else {
             paginationNav.classList.remove('hidden')
