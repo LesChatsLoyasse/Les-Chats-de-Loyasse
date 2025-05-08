@@ -3,108 +3,149 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const ejs = require('ejs');
+const sheets = require('@googleapis/sheets');
 
-const args = process.argv.slice(2).slice()
-const srcDir = path.join(process.cwd(), args[0] || 'src');
-const outputDir = path.join(process.cwd(), args[1] || 'public');
+async function fetchSheetData(spreadsheetId, googleAPIKey) {
+  const gsheets = sheets.sheets({
+    version: 'v4',
+    auth: googleAPIKey,
+  });
 
-// Ensure the output directory exists and is empty
-fs.ensureDirSync(outputDir);
-fs.emptyDirSync(outputDir);
+  // spreadsheet ID is not given for security good practices
+  // sheets name is OK, we can hardcode them
+  // ranges are also hardcoded, we expect one specific organization of the sheet to read info
+  try {
+    const responses = await Promise.all([
+      gsheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'adoption!A2:F',
+      }),
+      gsheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'actions!A2:F',
+      }),
+      gsheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'nouvelles-chats!A2:C',
+      }),
+      gsheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'chats-partis!A2:C',
+      }),
+      gsheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'gazettes!A2:B',
+      }),
+    ]);
 
-(() => {
-  const pagesDir = path.join(srcDir, 'views/pages');
+  return {
+      adoptions: responses[0].data.values,
+      actions: responses[1].data.values,
+      news: responses[2].data.values,
+      newsRIP: responses[3].data.values,
+      gazettes: responses[4].data.values,
+    }
+  } catch (error) {
+    if (error.response) {
+      // console.error(`API error: ${error.response.status}: ${error.response.statusText}`);
+      const res = error.response;
+      console.error(`${error.status} Something wrong occured when fetching sheet data : ${error.statusText}`);
+      console.error(res.data);
+    } else { console.error('Error:', error.message); }
+  }
+}
+
+
+// Post-processing: all links coming from Google Drive image sharing are rewritten
+// thanks to regex so that a direct link is used in HTML tags
+function _postProcessImageSources (imagesSources) {
+  const RE_DRIVE_IMAGE_ID = /https:\/\/drive.google.com\/file\/d\/(?<IMAGE_ID>[\w-]+)(?:\/.+)?/;
+  return imagesSources.map((source) => {
+    let regexMatching = RE_DRIVE_IMAGE_ID.exec(source);
+    if (!regexMatching || !regexMatching.groups) return source;
+    return `https://lh3.googleusercontent.com/d/${regexMatching.groups.IMAGE_ID}`;
+  })
+}
+
+function processSheetsData(rows) {
+  const adoptions = rows.adoptions.map((row, i) => {
+    // Expected columns:
+    // nom ; age ; genre ; citation ; description ; images
+    return {
+      id: i + 1,
+      name: row[0],
+      age: row[1],
+      gender: row[2],
+      quote: row[3],
+      description: row[4],
+      imagesSrc: _postProcessImageSources(row[5].split(' '))
+    }
+  });
+
+  const newsParsingFn = (row, i) => {
+    return {
+      id: i + 1,
+      title: row[0],
+      description: row[1],
+      imagesSrc: _postProcessImageSources(row[2].split(' '))
+    }
+  }
+  const news = rows.news.map(newsParsingFn)
+  const newsRIP = rows.newsRIP.map(newsParsingFn)
+
+  const actions = rows.actions.map((row, i) => {
+    // Expected columns:
+    // titre ; description ; images ; highlight ; bouton d'action ; lien
+    return {
+      id: i + 1,
+      title: row[0],
+      description: row[1],
+      imagesSrc: _postProcessImageSources(row[2].split(' ')),
+    }
+  });
+
+  const gazettes = rows.gazettes.map((row, i) => {
+    // Expected columns:
+    // titre ; lien
+    return {
+      id: i + 1,
+      title: row[0],
+      url: row[1],
+    }
+  })
+
+  return {
+    highlightsAdoption: adoptions.slice(0, 6),
+    adoptions: adoptions,
+    news: news,
+    newsRIP: newsRIP,
+    latestActions: actions.slice(0, 6),
+    archivedActions: actions.slice(6),
+    gazettes: gazettes,
+  }
+}
+
+function renderPages(sourceDir, outputDir, contentData) {
+  const pagesDir = path.join(sourceDir, 'views/pages');
   const pages = glob.sync('**/*.ejs', { cwd: pagesDir });
-
 
   console.log('Building the different pages ...')
   pages.forEach(page => {
+    const templatePath = path.join(pagesDir, page);
+    const outputPath = path.join(outputDir, page.replace('.ejs', '.html'));
+
     const getRelativePath = (path) => {
       const depth = page.split('/').length - 1;
       const prefix = depth > 0 ? '../'.repeat(depth) : './';
       return prefix + path;
     }
 
-    const latestActionsData = [
-      { id: "1", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", imageSrc: getRelativePath('assets/temp/adoption1.jpg'), description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité."},
-      { id: "2", title: "Luna", imageSrc: getRelativePath('assets/temp/adoption1.jpg'), description: "Luna est une boule d'amour..." },
-      { id: "3", title: "L'operation de PAO", imageSrc: getRelativePath('assets/temp/adoption2.jpg'), description: "Rocky est un jeune chat plein d'énergie..." },
-      { id: "4", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", imageSrc: getRelativePath('assets/temp/adoption1.jpg'), description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité."},
-      { id: "5", title: "Luna", imageSrc: getRelativePath('assets/temp/adoption1.jpg'), description: "Luna est une boule d'amour..." },
-      { id: "6", title: "L'operation de PAO", imageSrc: getRelativePath('assets/temp/adoption2.jpg'), description: "Rocky est un jeune chat plein d'énergie..." },
-    ];
-
     const data = {
-      // Helping functions for templating
-      defineLayoutContent: function(contentName, contentFn) {
-        if (!this.contentBlocks) this.contentBlocks = {};
-        this.contentBlocks[contentName] = contentFn();
-      },
-      getLayoutContent: function(contentName) {
-        return this.contentBlocks && this.contentBlocks[contentName]
-              ? this.contentBlocks[contentName]
-              : '';
-      },
       getRelativePath: getRelativePath,
       relativeRoot: getRelativePath(''),
 
-      // Data fields
-      // Mocked temporarily
-      
-      adoptionCats: [
-        { name: 'Shadow',    gender: 'male',     imageSource: getRelativePath('assets/temp/adoption1.jpg') },
-        { name: 'Rusty',     gender: 'male',     imageSource: getRelativePath('assets/temp/adoption2.jpg') },
-        { name: 'Luna',      gender: 'femelle',  imageSource: getRelativePath('assets/temp/adoption1.jpg') },
-        { name: 'James',     gender: 'male',     imageSource: getRelativePath('assets/temp/adoption2.jpg') },
-        { name: 'Joe',       gender: 'male',     imageSource: getRelativePath('assets/temp/adoption1.jpg') },
-        { name: 'Mary',      gender: 'femelle',  imageSource: getRelativePath('assets/temp/adoption2.jpg') },
-      ],
-
-      adoptionData: [
-        { id: "1", name: "BLAA",      age: "8 ans", quote: '"J\'aime les humains et être proche d\'eux"', gender: "male", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), photos: "assets/temp/adoption1.jpg assets/temp/adoption1.jpg assets/temp/adoption1.jpg assets/temp/adoption1.jpg assets/temp/adoption1.jpg assets/temp/adoption1.jpg assets/temp/adoption1.jpg assets/temp/adoption1.jpg", description: "Blablabla est un chat d'un calme olympien, Blablabla est un chat d'un calme olympien,Blablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympien Blablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympienBlablabla est un chat d'un calme olympien" },
-        { id: "2", name: "Tanguy",    age: "3 ans", quote: '"Je suis douce et câline."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "3", name: "Rocky",     age: "2 an", quote: '"J\'adore jouer et explorer!"', gender: "male", imageSrc: getRelativePath("assets/temp/adoption2.jpg"), description: "Rocky est un jeune chat plein d'énergie..." },
-        { id: "4", name: "Sophie",    age: "7 ans", quote: '"J\'aime les siestes au soleil."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "5", name: "Max",       age: "4 ans", quote: '"Toujours prêt pour une aventure."', gender: "male", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "5", name: "Chloe",     age: "6 ans", quote: '"Je suis très attachée à ma famille."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "6", name: "Misty",     age: "4 ans", quote: '"J\'aime observer le monde depuis une fenêtre."', gender: "femelle" },
-        { id: "7", name: "Marty",     age: "8 ans", quote: '"J\'aime les humains et être proche d\'eux"', gender: "male", imageSrc: "", description: "Marty est un chat d'un calme olympien..." },
-        { id: "8", name: "Luna",      age: "3 ans", quote: '"Je suis douce et câline."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "9", name: "Rocky",     age: "12 an", quote: '"J\'adore jouer et explorer!"', gender: "male", imageSrc: getRelativePath("assets/temp/adoption2.jpg"), description: "Rocky est un jeune chat plein d'énergie..." },
-        { id: "10", name: "Sophie",   age: "7 ans", quote: '"J\'aime les siestes au soleil."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "11", name: "Max",      age: "4 ans", quote: '"Toujours prêt pour une aventure."', gender: "male", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "12", name: "Chloe",    age: "6 ans", quote: '"Je suis très attachée à ma famille."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "13", name: "Simba",    age: "10 ans", quote: '"Un vieux sage plein d\'amour."', gender: "male", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "14", name: "Mia",      age: "10", quote: '"J\'ai beaucoup d\'énergie à dépenser."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "15", name: "Garfield", age: "5 ans", quote: '"Lasagnes et siestes, que demander de plus ?"', gender: "male", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "16", name: "Nala",     age: "8", quote: '"Exploratrice dans l\'âme."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "" },
-        { id: "17", name: "Felix",    age: "3 ans", quote: '"Un peu timide mais très affectueux une fois en confiance."', gender: "male", imageSrc: getRelativePath("assets/temp/adoption2.jpg"), description: "Luna est une boule d'amourrrrrrrrrrrrrrrrrrrrrr" },
-        { id: "18", name: "Misty",    age: "4", quote: '"J\'aime observer le monde depuis une fenêtre."', gender: "femelle", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-      ],
-
-      newsData: [
-        { id: "1", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité.", imageSrc: [getRelativePath("assets/temp/adoption1.jpg"), getRelativePath("assets/temp/adoption2.jpg"), getRelativePath("assets/temp/adoption1.jpg"), getRelativePath("assets/temp/adoption2.jpg")] },
-        { id: "2", title: "Luna", imageSrc: [getRelativePath("assets/temp/adoption1.jpg")], description: "Luna est une boule d'amour..." },
-        { id: "3", title: "L'operation de PAO", imageSrc:[getRelativePath("assets/temp/adoption2.jpg")], description: "Rocky est un jeune chat plein d'énergie..." },
-        { id: "4", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité.", imageSrc: [getRelativePath("assets/temp/adoption1.jpg")] },
-        { id: "5", title: "Luna 2", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-        { id: "6", title: "L'operation de PAO", imageSrc: getRelativePath("assets/temp/adoption2.jpg"), description: "Rocky est un jeune chat plein d'énergie..." },
-      ],
-
-      ripData: [
-        { id: "1", title: "Courageuse Daisy ❤️‍🩹", description: "Daisy, courageuse et douce Daisy, petite minette des rues recueillie par l’association à l’âge d’un an dans un très mauvais état de santé… Nous l’avons entourée d’amour et de bons soins, mais la maladie a eu raison d’elle. Lorsque nous l’avons recueillie, elle a tout de suite fait confiance et aimé les humains qui se sont occupés d’elle ! Elle adorait être brossée, elle a rapidement aimé la chaleur et le confort d’un intérieur chaud et moelleux. Elle a même appris à jouer et à profiter de la vie. Daisy avait énormément d’amour à donner ! Elle ronronnait comme tout dès que l’on s’approchait d’elle, avant même que l’on ait commencé à la caresser. Elle a fait le bonheur de tous les humains qui ont croisé son chemin, notamment Stéphane, Nina et Béatrice, et même les vétérinaires, et les assistantes vétérinaires ! Un ange notre Daisy… Nous lui avons donné de l’amour et des soins pour qu’elle puisse un jour connaître la joie d’un foyer définitif… Elle n’avait que deux ans lorsqu’elle nous a quitté, elle laisse un grand vide auprès de ceux qui l’ont connu, elle avait tant d’amour à donner. Repose en paix notre Daisy, loin de la maladie et la souffrance.", imageSrc: [getRelativePath("assets/temp/rip/Daisy-4.jpg"), getRelativePath("assets/temp/rip/Daisy-5.jpg"), getRelativePath("assets/temp/rip/Daisy-3.jpg"), getRelativePath("assets/temp/rip/Daisy-6.jpg")] },
-        { id: "2", title: "Une nouvelle étoile 🌟", imageSrc: [getRelativePath("assets/temp/adoption1.jpg")], description: "Luna est une boule d'amour..." },
-        { id: "3", title: "L'operation de PAO", imageSrc:[getRelativePath("assets/temp/adoption2.jpg")], description: "Rocky est un jeune chat plein d'énergie..." },
-        { id: "4", title: "Lorem ipsum dolor sit amet consectetur. Nisl adipiscing tristique congue vel.", description: "Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il ‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité.", imageSrc: [getRelativePath("assets/temp/adoption1.jpg")] },
-        { id: "5", title: "Luna 2", imageSrc: getRelativePath("assets/temp/adoption1.jpg"), description: "Luna est une boule d'amour..." },
-      ],
-
-      latestActionsData: latestActionsData,
-      archivedActionsData: latestActionsData.slice(-1)
-    };
-
-    const templatePath = path.join(pagesDir, page);
-    const outputPath = path.join(outputDir, page.replace('.ejs', '.html'));
+      ...contentData,
+    }
 
     // Ensure output directory exists
     fs.ensureDirSync(path.dirname(outputPath));
@@ -112,8 +153,8 @@ fs.emptyDirSync(outputDir);
     // Render the EJS template
     console.log(`\t- building ${outputPath} from ${page}`);
     ejs.renderFile(templatePath, data, {
-      root: path.join(srcDir, 'views'),
-      views: [path.join(srcDir, 'views')]
+      root: path.join(sourceDir, 'views'),
+      views: [path.join(sourceDir, 'views')]
     }, (err, html) => {
       if (err) {
         console.error(`Error processing ${page}`, err);
@@ -124,5 +165,31 @@ fs.emptyDirSync(outputDir);
       fs.writeFileSync(outputPath, html);
     });
   });
+}
 
+(async () => {
+  const args = process.argv.slice(2).slice()
+  const sourceDir = path.join(process.cwd(), args[0] || 'src');
+  const outputDir = path.join(process.cwd(), args[1] || 'public');
+
+  const googleAPIKey = process.env.GSHEETS_API_KEY;
+  const spreadsheetId = process.env.GSHEETS_SPREADSHEET_ID;
+
+  if (!googleAPIKey || !spreadsheetId) {
+    console.error(`
+      Both $GSHEETS_API_KEY and $GSHEETS_SPREADSHEET_ID need to be defined as environment variables.
+      Current values :
+        GSHEETS_API_KEY = ${'*******' + googleAPIKey.slice(6)}
+        GSHEETS_SPREADSHEET_ID = ${'*******' + spreadsheetId.slice(6)}
+    `)
+  }
+
+  let sheetsRows = await fetchSheetData(spreadsheetId, googleAPIKey);
+  let contentData = processSheetsData(sheetsRows)
+
+  // Ensure the output directory exists and is empty
+  fs.ensureDirSync(outputDir);
+  fs.emptyDirSync(outputDir);
+
+  renderPages(sourceDir, outputDir, contentData);
 })();

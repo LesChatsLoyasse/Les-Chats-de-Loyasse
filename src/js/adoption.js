@@ -1,7 +1,6 @@
 var fromRoot = path => { return document.getElementById('relative-root').textContent + path};
 
 document.addEventListener("DOMContentLoaded", () => {
-
     // --- Configuration ---
     let currentPage = 1;
     const cardsPerPage = 6;
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const carouselPhotosContainer = document.getElementById('carouselPhotosContainer');
     const carouselButtonsContainer = document.getElementById('carouselButtonsContainer');
     const imageWidth = 400;
-    let photos = [];
     // Section parente pour le scroll (optionnel, si besoin de scroller vers le haut de la section grille)
 
     // --- Vérification initiale des éléments DOM essentiels ---
@@ -104,6 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {string} catId L'ID unique du chat à afficher.
      */
     function showDetailView(catId) {
+        let photos = []; 
+
         // Vérification si les éléments DOM de la vue détail existent
         if (!detailView || !detailImage || !detailName || !detailAge || !detailQuote || !detailDescription || !detailGenderIcon) {
              console.error("Éléments de la vue détaillée non trouvés dans le DOM.");
@@ -121,21 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // --- Remplir les éléments de la vue détaillée ---
-        detailImage.src = catData.imageSrc || fromRoot('assets/images/image-default.jpg'); // Image par défaut si non spécifiée TODO: changer
+        detailImage.src = catData.imagesSrc[0] || fromRoot('assets/images/image-default.jpg'); // Image par défaut si non spécifiée TODO: changer
         detailImage.alt = `Photo détaillée de ${catData.name}`;
-
         detailGenderIcon.src = `${fromRoot('assets/icones')}/${catData.gender === 'male' ? 'male.png' : 'femelle.png'}`;
         detailGenderIcon.alt = catData.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle';
-
-        detailName.textContent = catData.name || "Nom inconnu"; // Valeur par défaut
+        detailName.textContent = catData.name || "Nom inconnu";
         detailAge.textContent = catData.age || "Age inconnu";
-        detailQuote.textContent = catData.quote || ""; // Citation vide si non fournie
+        detailQuote.textContent = catData.quote || "";
 
-        photos = catData.photos;
-
-        if (photos && photos.length > 0) {
-            photos = catData.photos.split(" ")
+        if (catData.imagesSrc.length > 1) {
+            photos = catData.imagesSrc.slice(1)
 
             photos.forEach(photo => {
                 const catPhoto = document.createElement("div");
@@ -164,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 carouselPhotos.style.transform = `translateX(${-imageWidth * counter}px)`;
                 updateCarouselButtons();
             });
-        
+
             prevCarousel.addEventListener("click", () => {
                 if (counter <= 0) return;
                 counter--;
@@ -248,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => { ... });
     */
-    
+
 
     // --- Logique de Filtrage ---
 
@@ -269,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return false; // Format non reconnu
     }
     // Applique le filtre actuel aux données globales
-    
+
     function applyFilter(allData) {
         if (!allData) {
             console.error("applyFilter appelée sans données!");
@@ -321,9 +316,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderAdoptionCards(data) {
         adoptionGrid.innerHTML = ""; // Efface le contenu précédent
         if (allData) {  adoptionGrid.classList.remove('is-empty');  }
-        
+
         if (!adoptionGrid || data.length === 0 ||!data) {
-            adoptionGrid.classList.add('is-empty'); 
+            adoptionGrid.classList.add('is-empty');
             const emptyImageSrc = fromRoot("assets/icones/icone-chat.png");
             const emptyMessageText = "Il n'y a aucun chat à afficher ici";
 
@@ -344,7 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
             card.setAttribute('aria-label', `Voir la fiche de ${cat.name}`);
-            const imageSource = cat.imageSrc || fromRoot('assets/images/image-default.jpg');
+            const imageSource = cat.imagesSrc[0] || fromRoot('assets/images/image-default.jpg');
             // Utilisation de classes pour les images pour un ciblage CSS plus précis
             card.innerHTML = `
                 <img src="${imageSource}" alt="Photo de ${cat.name}" class="card-image">
@@ -367,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
         prevButton.disabled = isTransitioning || currentPage <= 1;
         nextButton.disabled = isTransitioning || currentPage >= totalPages;
          // console.log(`Update Pagination Buttons: Prev disabled=${prevButton.disabled}, Next disabled=${nextButton.disabled}`);
-        if (totalPages < 2) { 
+        if (totalPages < 2) {
             paginationNav.classList.add('hidden')
         } else {
             paginationNav.classList.remove('hidden')
@@ -455,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. Stocker les données et créer la Map pour accès rapide par ID
             const allAdoptions = fetchedData; // Référence globale si nécessaire
             allAdoptionsDataMap = new Map(allAdoptions.map(cat => [cat.id, cat]));
-            
+
             // 2. Attacher les listeners qui dépendent des données ou de l'état initial
             filterAllButton.addEventListener('click', () => handleFilterClick('all', allAdoptions)); // Passe les données
             filterAdultesButton.addEventListener('click', () => handleFilterClick('adultes', allAdoptions));

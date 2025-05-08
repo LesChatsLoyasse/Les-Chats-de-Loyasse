@@ -21,24 +21,14 @@
                 <p class="text">Retrouvez nos anciennes gazettes mensuelles en cliquant sur les photos ci-dessous, pour ne pas loupez les suivantes, abonnez-vous !</p>
             </div>
             <div class="anciennes-gazettes-liens">
-                <div class="ancienne-gazette">
-                    <a href="https://drive.google.com/file/d/1SH5hGNTusRQVsTLkuKoYG5r296IJaDym/view?usp=drive_link" target="_blank">
-                        <img src="../assets/images/image-default.jpg">
-                        <p class="section-title">La gazette de Mars</p>
-                    </a>
-                </div>
-                <div class="ancienne-gazette">
-                    <a href="https://drive.google.com/file/d/1aDOsSL5uBfU5mPy71bnRS-i7XX1YuylP/view?usp=drive_link" target="_blank">
-                        <img src="../assets/images/image-default.jpg">
-                        <p class="section-title">La gazette de Février</p>
-                    </a>
-                </div>
-                <div class="ancienne-gazette">
-                    <a href="https://drive.google.com/file/d/10SD03kHTOL5uh0qNoaQtkWcilLU1_rKR/view?usp=drive_link" target="_blank">
-                        <img src="../assets/images/image-default.jpg">
-                        <p class="section-title">La gazette de Janvier</p>
-                    </a>
-                </div>
+                <% gazettes.forEach((entry) => { %>
+                    <div class="ancienne-gazette">
+                        <a href="<%= entry.url %>" target="_blank">
+                            <img src="../assets/images/image-default.jpg">
+                            <p class="section-title"><%= entry.title %></p>
+                        </a>
+                    </div>
+                <% }); %>
             </div>
         </section>
 
