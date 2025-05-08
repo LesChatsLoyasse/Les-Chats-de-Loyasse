@@ -32,13 +32,18 @@ async function fetchSheetData(spreadsheetId, googleAPIKey) {
         spreadsheetId: spreadsheetId,
         range: 'chats-partis!A2:C',
       }),
+      gsheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'gazettes!A2:B',
+      }),
     ]);
 
   return {
-      adoptionRows: responses[0].data.values,
-      actionsRows: responses[1].data.values,
-      newsRows: responses[2].data.values,
-      goneCatsRows: responses[3].data.values,
+      adoptions: responses[0].data.values,
+      actions: responses[1].data.values,
+      news: responses[2].data.values,
+      newsRIP: responses[3].data.values,
+      gazettes: responses[4].data.values,
     }
   } catch (error) {
     if (error.response) {
@@ -63,7 +68,7 @@ function _postProcessImageSources (imagesSources) {
 }
 
 function processSheetsData(rows) {
-  const adoptionData = rows.adoptionRows.map((row, i) => {
+  const adoptions = rows.adoptions.map((row, i) => {
     // Expected columns:
     // nom ; age ; genre ; citation ; description ; images
     return {
@@ -85,10 +90,10 @@ function processSheetsData(rows) {
       imagesSrc: _postProcessImageSources(row[2].split(' '))
     }
   }
-  const newsData = rows.newsRows.map(newsParsingFn)
-  const ripData = rows.goneCatsRows.map(newsParsingFn)
+  const news = rows.news.map(newsParsingFn)
+  const newsRIP = rows.newsRIP.map(newsParsingFn)
 
-  const actionsData = rows.actionsRows.map((row, i) => {
+  const actions = rows.actions.map((row, i) => {
     // Expected columns:
     // titre ; description ; images ; highlight ; bouton d'action ; lien
     return {
@@ -99,13 +104,24 @@ function processSheetsData(rows) {
     }
   });
 
+  const gazettes = rows.gazettes.map((row, i) => {
+    // Expected columns:
+    // titre ; lien
+    return {
+      id: i + 1,
+      title: row[0],
+      url: row[1],
+    }
+  })
+
   return {
-    highlightAdoptionData: adoptionData.slice(0, 6),
-    adoptionData: adoptionData,
-    newsData: newsData,
-    ripData: ripData,
-    latestActionsData: actionsData.slice(0, 6),
-    archivedActionsData: actionsData.slice(6),
+    highlightsAdoption: adoptions.slice(0, 6),
+    adoptions: adoptions,
+    news: news,
+    newsRIP: newsRIP,
+    latestActions: actions.slice(0, 6),
+    archivedActions: actions.slice(6),
+    gazettes: gazettes,
   }
 }
 
@@ -162,7 +178,7 @@ function renderPages(sourceDir, outputDir, contentData) {
   if (!googleAPIKey || !spreadsheetId) {
     console.error(`
       Both $GSHEETS_API_KEY and $GSHEETS_SPREADSHEET_ID need to be defined as environment variables.
-      Current values : 
+      Current values :
         GSHEETS_API_KEY = ${'*******' + googleAPIKey.slice(6)}
         GSHEETS_SPREADSHEET_ID = ${'*******' + spreadsheetId.slice(6)}
     `)
@@ -173,7 +189,7 @@ function renderPages(sourceDir, outputDir, contentData) {
 
   // Ensure the output directory exists and is empty
   fs.ensureDirSync(outputDir);
-  fs.emptyDirSync(outputDir); 
+  fs.emptyDirSync(outputDir);
 
   renderPages(sourceDir, outputDir, contentData);
 })();
