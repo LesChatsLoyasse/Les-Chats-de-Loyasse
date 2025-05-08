@@ -5,6 +5,9 @@ on:
     - cron: "0 0 1 * *" # Beginning of every month at 00:00
   workflow_dispatch:    # allows manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,7 +27,7 @@ jobs:
 
       - name: Run the build
         run: npm run build
-        env: 
+        env:
           GSHEETS_API_KEY: ${{ secrets.GSHEETS_API_KEY }}
           GSHEETS_SPREADSHEET_ID: ${{ secrets.GSHEETS_SPREADSHEET_ID }}
 
