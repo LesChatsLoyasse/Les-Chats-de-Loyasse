@@ -10,6 +10,7 @@
     --light-opacity-background: rgba(48, 72, 36, 0.897); /* Definition de la couleur de fond legerement transparent */
     --hover-background: rgba(0, 0, 0, 0.5); /* Definition du fond lors d'un hover */
     --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3); /* Definition de l'ombre sur les elements */
+    overflow-x: hidden;
 }
 
 /* Style global */
@@ -464,12 +465,17 @@ nav[role="navigation"] {
 @media only screen and (min-width : 320px) and (max-width : 767px) {
     .homepage {
         background-size: cover;
-        background-position: center;
+        background-position: -101vw 0vh;
+        padding-top: 10vh;
+        height: 85vh;
     }
 
     .accueil-text {
         width: 100%;
         max-width: 100%;
+        padding-right: 0;
+        padding-left: 3vw;
+        margin-top: -2vh;
     }
     
     .separator {
@@ -480,11 +486,13 @@ nav[role="navigation"] {
     .accueil-buttons {
         max-width: 100vw;
         margin-right: 0;
+        gap: 0;
     }
     
     .accueil-button {
-        width: 20vw;
-        height: 15vh;
+        width: 25vw;
+        height: 13vh;
+        margin: 3vw;
     }
     
     .accueil-button img {
@@ -509,12 +517,13 @@ nav[role="navigation"] {
     display: flex;
     content: "";
     position: absolute;
-    top: -130px; /* Ajuste cette valeur pour faire chevaucher la vague */
+    top: -24vh; /* Ajuste cette valeur pour faire chevaucher la vague */
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
     background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
+    background-size: cover;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
@@ -594,18 +603,6 @@ nav[role="navigation"] {
     z-index: 3;
 }
 
-.adoption::after {
-    display: flex;
-    content: "";
-    position: absolute;
-    top: 32vh; 
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
-    height: 100%;
-    background: url('../assets/vagues/vague-accueil-bottom.png') no-repeat;
-    z-index: 2; 
-}
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
 
@@ -613,9 +610,28 @@ nav[role="navigation"] {
         padding-bottom: 4vh;
     }
 
+    .adoption .title {
+        font-size: 2em;
+    }
+
+    .adoption .subtitle {
+        font-size: 2em;
+    }
+
+    .adoption-text .p {
+        padding: 3vw;
+    }
+
+    .adoption::before {
+        display: none;
+    }
+
     .liste-adoption {
         gap: 3vw;
         grid-template-columns: repeat(2, minmax(150px, 1fr));
+        margin-top: -5vh;
+        margin-bottom: 3vh;
+        width: 95vw;
     }
     
     .cat-card {
@@ -633,16 +649,29 @@ nav[role="navigation"] {
     }
     
     .adoption button {
-        width: 30vw;
+        width: 50vw;
     }
-    
-    .adoption::after {
-        content: "";
-        background: none;
+
+    .overlay {
+        padding-bottom: 3vh;
     }
 }
 
 /* Section actualites */
+
+.actualites::before {
+    display: flex;
+    content: "";
+    position: absolute;
+    top: -116vh; 
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
+    height: 100%;
+    background: url('../assets/vagues/vague-accueil-bottom.png') no-repeat;
+    background-size: cover;
+    z-index: 2; 
+}
 
 .actualites {
     display: flex;
@@ -725,12 +754,25 @@ nav[role="navigation"] {
     .actualites {
         justify-content: center;
         padding-top: 0;
-        background-position: center;
+        background-position: 280vw;
+    }
+
+    .actualites::before {
+        content: "";
+        background: none;
     }
 
     .news-card {
         width: 75vw;
         margin-left: 0;
+    }
+
+    .news-card img {
+        width: 100%;
+    }
+
+    .news-card button {
+        width: 60%;
     }
 }
 
@@ -790,12 +832,13 @@ nav[role="navigation"] {
     display: flex;
     content: "";
     position: absolute;
-    top: -130px; /* Ajuste cette valeur pour faire chevaucher la vague */
+    top: -25vh; /* Ajuste cette valeur pour faire chevaucher la vague */
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
     background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
+    background-size: cover;
 }
 
 .page-adoption-list .action-buttons {
@@ -1176,8 +1219,9 @@ nav[role="navigation"] {
     }
 
     .page-adoption-card-text img.gender-icon {
-        margin-top: 20%;
-        margin-right: 2%;
+        margin-top: 6%;
+        margin-right: 3%;
+        width: 6vw;
     }
 
     .detail-view {
@@ -1187,6 +1231,27 @@ nav[role="navigation"] {
 
     .empty-grid-message {
         padding-left: 5vw;
+    }
+
+    .detail-card {
+        flex-direction: column;
+    }
+
+    .detail-card .detail-image {
+        width: 100%;
+    }
+
+    .detail-description {
+        max-height: 100vh;
+    }
+
+    .detail-text-content {
+        width: 90%;
+        padding-left: 0;
+        margin-left: 0;
+        padding: 3vw;
+        font-size: 90%;
+        margin-left: 0.5vh;
     }
 }
 
@@ -1230,6 +1295,7 @@ nav[role="navigation"] {
     min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
     background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
+    background-size: cover;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
@@ -1291,6 +1357,7 @@ nav[role="navigation"] {
 
     .list-association-actions {
         row-gap: 10vh;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .association-action {
@@ -1298,6 +1365,10 @@ nav[role="navigation"] {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    .association-actions .text-fin {
+        padding: 3vw;
     }
 }
 
@@ -1330,12 +1401,13 @@ nav[role="navigation"] {
     display: flex;
     content: "";
     position: absolute;
-    top: -150px; /* Ajuste cette valeur pour faire chevaucher la vague */
+    top: -22vh; /* Ajuste cette valeur pour faire chevaucher la vague */
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
     height: 100%; /* Ajuste la hauteur selon ta vague */
     background: url('../assets/vagues/vague-accueil-top.png') no-repeat;
+    background-size: cover;
     z-index: 2; /* Assure qu'elle est bien visible au-dessus de `.accueil` */
 }
 
@@ -1350,12 +1422,13 @@ nav[role="navigation"] {
     display: flex;
     content: "";
     position: absolute;
-    top: 300px; 
+    top: 22vh; 
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
     height: 100%;
     background: url('../assets/vagues/vague-accueil-bottom.png') no-repeat;
+    background-size: cover;
     z-index: 2; 
 }
 
@@ -1448,9 +1521,9 @@ nav[role="navigation"] {
     background-size: cover; 
     background-position: bottom;
     height: 100vh;
-    padding-bottom: 300px;
-    padding-top: 50px;
-    margin-bottom: 100px;
+    padding-bottom: 30vh;
+    padding-top: 20vh;
+    margin-bottom: 10vh;
 }
 
 .wishlist-content-wrapper {
@@ -1462,12 +1535,19 @@ nav[role="navigation"] {
     z-index: 1; 
     justify-content: center;
     align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.wishlist-content-wrapper .text {
+    width: 80vw;
 }
 
 .wishlist-steps-list {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 3vh;
 }
 
 /* Étapes Wishlist */
@@ -1476,10 +1556,9 @@ nav[role="navigation"] {
     justify-content: space-around; /* Espace équitablement */
     align-items: flex-start; /* Aligne en haut */
     flex-wrap: wrap; /* Passe à la ligne sur petits écrans */
-    column-gap: 6vw;
+    width: 80vw;
     z-index: 2;
-    position: absolute;
-    margin-top: 8vh;
+    margin-top: 2vh;
 }
 
 .wishlist-steps-list img {
@@ -1507,8 +1586,8 @@ nav[role="navigation"] {
     align-content: left; /* Centre verticalement (approximatif) */
     justify-content: left; /* Centre horizontalement */
     width: 100%;
-    margin-top: 35vh;
     margin-left: 20%;
+    margin-top: 15vh;
 }
 
 .qr-code-area {
@@ -1516,10 +1595,8 @@ nav[role="navigation"] {
     width: 30%;
     border: 10px solid var(--dark-background-color);
     border-radius: 15px;
-    margin-top: -100px;
-    
-
 }
+
 .qr-code-area img {
     width: 100%;
     height: auto;
@@ -1527,11 +1604,11 @@ nav[role="navigation"] {
 }
 
 .overlay-text-box {
-    position: absolute; /* Positionné par rapport à .wishlist-visuals */
-    top: 45%;  /* Ajuste position */
-    right: 100px;   /* Ajuste position */
-    width: 450px; /* Largeur boîte texte */
-    background-color: rgba(40, 60, 30, 0.762); /* Fond semi-transparent */
+    position: absolute; 
+    top: 45%;
+    right: 7vw;
+    width: 26vw;
+    background-color: rgba(40, 60, 30, 0.762);
     padding: 20px;
     border-radius: 15px;
     font-size: 1.2em;
@@ -1547,7 +1624,7 @@ nav[role="navigation"] {
     background-position: bottom;
     height: 100vh;
     width: 100vw;
-    padding-bottom: 65vh;
+    padding-bottom: 15vh;
     padding-top: 50px;
     text-align: center;
 }
@@ -1555,10 +1632,11 @@ nav[role="navigation"] {
 .section-don-adhesion::before {
     content: "";
     background: url('../assets/vagues/vague-milieu.png') no-repeat;
+    background-size: contain;
     z-index: 2;
     display: flex;
     position: absolute;
-    top: -270px; /* Ajuste cette valeur pour faire chevaucher la vague */
+    top: -25vh; /* Ajuste cette valeur pour faire chevaucher la vague */
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
@@ -1566,7 +1644,7 @@ nav[role="navigation"] {
 }
 
 .section-don-adhesion .subtitle {
-    margin-top: -150px;
+    margin-top: -12vh;
     z-index: 10;
     position: relative;
 }
@@ -1625,6 +1703,10 @@ nav[role="navigation"] {
     width: 350px;
 }
 
+.don-adhesion .text-fin {
+    padding-top: 0;
+}
+
 @media only screen and (min-width : 320px) and (max-width : 767px) {
     .nous-aider {
         background-position: center;
@@ -1633,7 +1715,7 @@ nav[role="navigation"] {
     .nous-aider .accueil-text {
         max-width: 50vw;
         font-size: 90%;
-        padding-right: 3vw;
+        padding-right: 6vw;
     }
 
     .accueil-buttons {
@@ -1641,13 +1723,30 @@ nav[role="navigation"] {
     }
 
     .nous-aider .accueil-button {
-        width: 20vw;
-        height: 15vh;
+        width: 25vw;
+        height: 13vh;
+        margin: 3vw;
     }
 
     .nous-aider .accueil-buttons {
-        margin-left: -50%;
+        margin-left: -40vw;
         margin-top: 5vh;
+    }
+    
+    .accueil-button img {
+        width: 6vw;
+    }
+
+    .section-aider {
+        padding-bottom: 5vh;
+    }
+
+    .section-aider::before {
+        display: none;
+    }
+
+    .section-aider::after {
+        display: none;
     }
 
     .list-aide {
@@ -1661,19 +1760,16 @@ nav[role="navigation"] {
 
     .wishlist-section {
         padding-bottom: 60vh;
-
+        padding-top: 5vh;
+        background-position: 251vw;
     }
 
     .wishlist-steps {
         display: flex;
         flex-direction: column;
         margin-top: 2vh;
-        margin-right: 50%;
         gap: 3vh;
-    }
-
-    .wishlist-steps-list {
-        margin-top: 5vh;
+        align-items: center;
     }
 
     .wishlist-steps-list img {
@@ -1682,7 +1778,10 @@ nav[role="navigation"] {
 
     .wishlist-visuals {
         margin-top: 25vh;
-        margin-left: 110vw;
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        align-items: center;
     }
 
     .qr-code-area {
@@ -1690,12 +1789,36 @@ nav[role="navigation"] {
     }
 
     .overlay-text-box {
-        top: 30vh;
-        margin-right: 50vw;
+        align-self: center;
+        display: flex;
+        padding: 3vw;
+        margin: 3vw;
+        margin-top: 3vw;
+        margin-top: 5vh;
+        width: auto;
+        right: 0;
+    }
+
+    .section-don-adhesion {
+        padding-bottom: 58vh;
+    }
+
+    .section-don-adhesion::before {
+        display: none;
+    }
+
+    .section-don-adhesion .subtitle {
+        margin-top: -17vh;
+        background-color: var(--light-background-color);
     }
 
     .don-adhesion {
         margin-top: -10vh;
+        padding-bottom: 60vh;
+    }
+
+    .don-adhesion .accueil-button img {
+        width: 12vw;
     }
 
     .colonnes-paiement {
@@ -1704,10 +1827,11 @@ nav[role="navigation"] {
         align-content: center;
         font-size: 80%;
         align-items: center;
+        padding-top: 10vh;
     }
 
     .cheque-details {
-        width: 100%;
+        width: 80vw;
     }
 
     .text-fin {
@@ -1782,11 +1906,12 @@ nav[role="navigation"] {
 .section-actions::before {
     content: "";
     background: url('../assets/images/font-nos-actions.png') no-repeat;
+    background-size: contain;
     background-position: center;
     z-index: 2;
     display: flex;
     position: absolute;
-    top: -60vh; /* Ajuste cette valeur pour faire chevaucher la vague */
+    top: -56%;
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
@@ -1828,6 +1953,7 @@ nav[role="navigation"] {
 .item-action-text {
     padding-right: 50px;
     padding-left: 50px;
+    width: 60%;
 }
 
 .item-action-text .section-title {
@@ -1863,6 +1989,10 @@ nav[role="navigation"] {
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
+    .nos-actions {
+        background-position: -234vw;
+    }
+
     .nos-actions .accueil-text {
         padding-top: 0;
     }
@@ -1888,9 +2018,23 @@ nav[role="navigation"] {
         height: auto;
     }
 
+    .item-action-text {
+        width: 80%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .archives {
+        background-position: -113vw;
+    }
+
     .archives .accueil-text {
         font-size: 80%;
         padding-top: 50vh;
+    }
+
+    .section-actions nav {
+        justify-content: center;
     }
 }
 
@@ -1953,9 +2097,24 @@ nav[role="navigation"] {
     }
 
     .gazette .accueil-text {
-        padding-top: 20vh;
-        padding-right: 40vw;
+        padding-top: 11.5vh;
+        padding-right: 36vw;
         padding-left: 5vw;
+        font-size: 85%;
+    }
+
+    .section-anciennes-gazettes .text {
+        padding: 3vw;
+        padding-bottom: 0;
+    }
+
+    .ancienne-gazette .section-title {
+        font-size: 1em;
+    }
+
+    .anciennes-gazettes-liens {
+        padding-left: 3vw;
+        padding-right: 3vw;
     }
 }
 
@@ -2095,7 +2254,8 @@ nav[role="navigation"] {
 }
 
 .section-chats-partis .pagination-chats {
-    justify-self: right;
+    display: flex;
+    justify-content: right;
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
@@ -2123,15 +2283,20 @@ nav[role="navigation"] {
     }
 
     .chats-partis {
-        background-position: left;
+        background-position: -55vw -14vh;
     }
 
     .chats-partis .accueil-text {
-        font-size: 80%;
         margin-left: 0;
-        margin-right: 30vh;
         margin-top: 25vh;
+    }
 
+    .section-chats-partis .pagination-chats {
+        justify-content: center;
+    }
+
+    .section-nouvelles-chats nav {
+        justify-content: center;
     }
 }
 
@@ -2150,6 +2315,7 @@ nav[role="navigation"] {
 .footer::before {
     content: "";
     background: url('../assets/vagues/vague-footer.png') no-repeat;
+    background-size: cover;
     z-index: 2;
     display: flex;
     position: absolute;
@@ -2222,9 +2388,18 @@ nav[role="navigation"] {
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
+    .footer-content {
+        padding: 0;
+        gap: 5vw;
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .footer-content img {
-        width: 25vw;
+        width: 40vw;
         height: 25vh;
+        padding-bottom: 5vh;
+        margin-top: -8vh;
     }
 
     .footer::before {
@@ -2232,7 +2407,7 @@ nav[role="navigation"] {
     }
 
     .contact {
-        margin-left: 5vw;
+        margin-left: 2vw;
         display: flex;
         flex-direction: column;
         gap: 3vh;
@@ -2242,6 +2417,8 @@ nav[role="navigation"] {
     .contact img {
         width: 4vh;
         height: auto;
+        padding-bottom: 0;
+        margin-top: 0;
     }
 
     .contact-link {
@@ -2284,6 +2461,7 @@ nav[role="navigation"] {
     position: absolute;
     white-space: nowrap;
     transform: translateY(100%);
+    opacity: 0;
     animation: slide 14s linear infinite;
     color: #f5f5f5;
     box-sizing: border-box;
