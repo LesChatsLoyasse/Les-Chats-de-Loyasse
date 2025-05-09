@@ -10,6 +10,7 @@
     --light-opacity-background: rgba(48, 72, 36, 0.897); /* Definition de la couleur de fond legerement transparent */
     --hover-background: rgba(0, 0, 0, 0.5); /* Definition du fond lors d'un hover */
     --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3); /* Definition de l'ombre sur les elements */
+    overflow-x: hidden;
 }
 
 /* Style global */
@@ -464,12 +465,17 @@ nav[role="navigation"] {
 @media only screen and (min-width : 320px) and (max-width : 767px) {
     .homepage {
         background-size: cover;
-        background-position: center;
+        background-position: -101vw 0vh;
+        padding-top: 10vh;
+        height: 85vh;
     }
 
     .accueil-text {
         width: 100%;
         max-width: 100%;
+        padding-right: 0;
+        padding-left: 3vw;
+        margin-top: -2vh;
     }
     
     .separator {
@@ -480,11 +486,13 @@ nav[role="navigation"] {
     .accueil-buttons {
         max-width: 100vw;
         margin-right: 0;
+        gap: 0;
     }
     
     .accueil-button {
-        width: 20vw;
-        height: 15vh;
+        width: 25vw;
+        height: 13vh;
+        margin: 3vw;
     }
     
     .accueil-button img {
@@ -602,9 +610,28 @@ nav[role="navigation"] {
         padding-bottom: 4vh;
     }
 
+    .adoption .title {
+        font-size: 2em;
+    }
+
+    .adoption .subtitle {
+        font-size: 2em;
+    }
+
+    .adoption-text .p {
+        padding: 3vw;
+    }
+
+    .adoption::before {
+        display: none;
+    }
+
     .liste-adoption {
         gap: 3vw;
         grid-template-columns: repeat(2, minmax(150px, 1fr));
+        margin-top: -5vh;
+        margin-bottom: 3vh;
+        width: 95vw;
     }
     
     .cat-card {
@@ -622,7 +649,11 @@ nav[role="navigation"] {
     }
     
     .adoption button {
-        width: 30vw;
+        width: 50vw;
+    }
+
+    .overlay {
+        padding-bottom: 3vh;
     }
 }
 
@@ -723,7 +754,7 @@ nav[role="navigation"] {
     .actualites {
         justify-content: center;
         padding-top: 0;
-        background-position: center;
+        background-position: 280vw;
     }
 
     .actualites::before {
@@ -734,6 +765,14 @@ nav[role="navigation"] {
     .news-card {
         width: 75vw;
         margin-left: 0;
+    }
+
+    .news-card img {
+        width: 100%;
+    }
+
+    .news-card button {
+        width: 60%;
     }
 }
 
@@ -1180,8 +1219,9 @@ nav[role="navigation"] {
     }
 
     .page-adoption-card-text img.gender-icon {
-        margin-top: 20%;
-        margin-right: 2%;
+        margin-top: 6%;
+        margin-right: 3%;
+        width: 6vw;
     }
 
     .detail-view {
@@ -1191,6 +1231,27 @@ nav[role="navigation"] {
 
     .empty-grid-message {
         padding-left: 5vw;
+    }
+
+    .detail-card {
+        flex-direction: column;
+    }
+
+    .detail-card .detail-image {
+        width: 100%;
+    }
+
+    .detail-description {
+        max-height: 100vh;
+    }
+
+    .detail-text-content {
+        width: 90%;
+        padding-left: 0;
+        margin-left: 0;
+        padding: 3vw;
+        font-size: 90%;
+        margin-left: 0.5vh;
     }
 }
 
@@ -1296,6 +1357,7 @@ nav[role="navigation"] {
 
     .list-association-actions {
         row-gap: 10vh;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .association-action {
@@ -1303,6 +1365,10 @@ nav[role="navigation"] {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    .association-actions .text-fin {
+        padding: 3vw;
     }
 }
 
@@ -1649,7 +1715,7 @@ nav[role="navigation"] {
     .nous-aider .accueil-text {
         max-width: 50vw;
         font-size: 90%;
-        padding-right: 3vw;
+        padding-right: 6vw;
     }
 
     .accueil-buttons {
@@ -1657,13 +1723,30 @@ nav[role="navigation"] {
     }
 
     .nous-aider .accueil-button {
-        width: 20vw;
-        height: 15vh;
+        width: 25vw;
+        height: 13vh;
+        margin: 3vw;
     }
 
     .nous-aider .accueil-buttons {
-        margin-left: -50%;
+        margin-left: -40vw;
         margin-top: 5vh;
+    }
+    
+    .accueil-button img {
+        width: 6vw;
+    }
+
+    .section-aider {
+        padding-bottom: 5vh;
+    }
+
+    .section-aider::before {
+        display: none;
+    }
+
+    .section-aider::after {
+        display: none;
     }
 
     .list-aide {
@@ -1677,19 +1760,16 @@ nav[role="navigation"] {
 
     .wishlist-section {
         padding-bottom: 60vh;
-
+        padding-top: 5vh;
+        background-position: 251vw;
     }
 
     .wishlist-steps {
         display: flex;
         flex-direction: column;
         margin-top: 2vh;
-        margin-right: 50%;
         gap: 3vh;
-    }
-
-    .wishlist-steps-list {
-        margin-top: 5vh;
+        align-items: center;
     }
 
     .wishlist-steps-list img {
@@ -1698,7 +1778,10 @@ nav[role="navigation"] {
 
     .wishlist-visuals {
         margin-top: 25vh;
-        margin-left: 110vw;
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        align-items: center;
     }
 
     .qr-code-area {
@@ -1706,12 +1789,36 @@ nav[role="navigation"] {
     }
 
     .overlay-text-box {
-        top: 30vh;
-        margin-right: 50vw;
+        align-self: center;
+        display: flex;
+        padding: 3vw;
+        margin: 3vw;
+        margin-top: 3vw;
+        margin-top: 5vh;
+        width: auto;
+        right: 0;
+    }
+
+    .section-don-adhesion {
+        padding-bottom: 58vh;
+    }
+
+    .section-don-adhesion::before {
+        display: none;
+    }
+
+    .section-don-adhesion .subtitle {
+        margin-top: -17vh;
+        background-color: var(--light-background-color);
     }
 
     .don-adhesion {
         margin-top: -10vh;
+        padding-bottom: 60vh;
+    }
+
+    .don-adhesion .accueil-button img {
+        width: 12vw;
     }
 
     .colonnes-paiement {
@@ -1720,10 +1827,11 @@ nav[role="navigation"] {
         align-content: center;
         font-size: 80%;
         align-items: center;
+        padding-top: 10vh;
     }
 
     .cheque-details {
-        width: 100%;
+        width: 80vw;
     }
 
     .text-fin {
@@ -1881,6 +1989,10 @@ nav[role="navigation"] {
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
+    .nos-actions {
+        background-position: -234vw;
+    }
+
     .nos-actions .accueil-text {
         padding-top: 0;
     }
@@ -1906,9 +2018,23 @@ nav[role="navigation"] {
         height: auto;
     }
 
+    .item-action-text {
+        width: 80%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .archives {
+        background-position: -113vw;
+    }
+
     .archives .accueil-text {
         font-size: 80%;
         padding-top: 50vh;
+    }
+
+    .section-actions nav {
+        justify-content: center;
     }
 }
 
@@ -1971,9 +2097,24 @@ nav[role="navigation"] {
     }
 
     .gazette .accueil-text {
-        padding-top: 20vh;
-        padding-right: 40vw;
+        padding-top: 11.5vh;
+        padding-right: 36vw;
         padding-left: 5vw;
+        font-size: 85%;
+    }
+
+    .section-anciennes-gazettes .text {
+        padding: 3vw;
+        padding-bottom: 0;
+    }
+
+    .ancienne-gazette .section-title {
+        font-size: 1em;
+    }
+
+    .anciennes-gazettes-liens {
+        padding-left: 3vw;
+        padding-right: 3vw;
     }
 }
 
@@ -2113,7 +2254,8 @@ nav[role="navigation"] {
 }
 
 .section-chats-partis .pagination-chats {
-    justify-self: right;
+    display: flex;
+    justify-content: right;
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
@@ -2141,15 +2283,20 @@ nav[role="navigation"] {
     }
 
     .chats-partis {
-        background-position: left;
+        background-position: -55vw -14vh;
     }
 
     .chats-partis .accueil-text {
-        font-size: 80%;
         margin-left: 0;
-        margin-right: 30vh;
         margin-top: 25vh;
+    }
 
+    .section-chats-partis .pagination-chats {
+        justify-content: center;
+    }
+
+    .section-nouvelles-chats nav {
+        justify-content: center;
     }
 }
 
@@ -2241,9 +2388,18 @@ nav[role="navigation"] {
 }
 
 @media only screen and (min-width : 320px) and (max-width : 767px) {
+    .footer-content {
+        padding: 0;
+        gap: 5vw;
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .footer-content img {
-        width: 25vw;
+        width: 40vw;
         height: 25vh;
+        padding-bottom: 5vh;
+        margin-top: -8vh;
     }
 
     .footer::before {
@@ -2251,7 +2407,7 @@ nav[role="navigation"] {
     }
 
     .contact {
-        margin-left: 5vw;
+        margin-left: 2vw;
         display: flex;
         flex-direction: column;
         gap: 3vh;
@@ -2261,6 +2417,8 @@ nav[role="navigation"] {
     .contact img {
         width: 4vh;
         height: auto;
+        padding-bottom: 0;
+        margin-top: 0;
     }
 
     .contact-link {
