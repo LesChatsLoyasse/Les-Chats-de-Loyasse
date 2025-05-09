@@ -62,11 +62,11 @@
         <section class="actualites">
             <div class="news-card">
                 <h2 class="subtitle">Actualités</h2>
-                <h3 class="section-title">Opération de PAO</h3>
+                <h3 class="section-title"><%= latestActions[0].title %></h3>
                 <div class="preview-text">
-                    <p>Bonjour, je m’appelle PAO. <br> Bonjour, je m’appelle PAO. Je suis un chaton mâle âgé de 6 mois né dans la rue. J’ai été pris en charge par l’association et mis à l’abri avec ma Fratrie, nous étions petits. Je suis devenu un chaton merveilleux et affectueux.  Lors de ma stérilisation, le vétérinaire s’est aperçu à mon réveil que j’avais du mal à respirer. Il m‘a fait une échographie du thorax et là ……surprise, très mauvaise surprise …. J’ai une hernie diaphragmatique. Une malformation de naissance …. Pas de chance. Cela fatigue mon petit cœur rempli d’amour. Je dois être opéré au plus vite, l’association a organisé ma prise en charge auprès d’un vétérinaire-chirurgien très compétent.  Je suis confiant mais j’ai un peu peur … très peur…. Tatie m’a expliqué l’intervention et me réconforte avec les bénévoles. Je lance un appel, pourriez-vous aider l’association à financer mon opération (969€).  Un reçu fiscal vous sera délivrer et vous m’aurez sauvé.  Signé PAO qui vous remercie pour votre grand cœur et votre générosité. »</p>
+                    <p><%= latestActions[0].description %></p>
                 </div>
-                <img src="./assets/temp/adoption1.jpg">
+                <img src="<%= latestActions[0].imagesSrc[0] %>">
                 <button class="action-button"><a href="nos-actions/actualites.html">EN LIRE PLUS</a></button>
             </div>
         </section>
