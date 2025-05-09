@@ -1,6 +1,6 @@
-# Les Chats de la Loyasse
+# Les Chats de Loyasse
 
-Static website / "site vitrine" for **Les Chats de La Loyasse** association
+Static website / "site vitrine" for **Les Chats de Loyasse** association
 
 ## Stack
 
