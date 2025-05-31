@@ -60,6 +60,8 @@ async function fetchSheetData(spreadsheetId, googleAPIKey) {
 // thanks to regex so that a direct link is used in HTML tags
 function _postProcessImageSources (imagesSources) {
   const RE_DRIVE_IMAGE_ID = /https:\/\/drive.google.com\/file\/d\/(?<IMAGE_ID>[\w-]+)(?:\/.+)?/;
+  imagesSources = imagesSources.filter((source) => source != '');
+
   return imagesSources.map((source) => {
     let regexMatching = RE_DRIVE_IMAGE_ID.exec(source);
     if (!regexMatching || !regexMatching.groups) return source;
