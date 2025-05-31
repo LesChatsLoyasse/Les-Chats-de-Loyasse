@@ -50,10 +50,12 @@
                         <img src="<%= cat.imagesSrc[0] %>" />
                         <div class="overlay">
                             <p><%= cat.name %></p>
-                            <img src="./assets/icones/<%= cat.gender %>.png" />
+                            <img 
+                                src="./assets/icones/<%= cat.gender.toUpperCase() === 'M' ? 'male' : 'femelle' %>.png" 
+                            />
                         </div>
                     </div>
-                <% }); %>
+                <% }) %>
             </div>
             <button class="action-button"><a href="adopter.html">EN VOIR PLUS</a></button>
         </section>
