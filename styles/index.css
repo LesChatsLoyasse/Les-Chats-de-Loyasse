@@ -567,12 +567,6 @@ nav[role="navigation"] {
     background-color: var(--dark-background-color);
 }
 
-.adoption-image-frame {
-    height: 80%;
-    clip-path: ellipse(90% 100% at 50% 0%);
-    background-size: cover;
-}
-
 .overlay {
     display: flex;
     flex-direction: row;
