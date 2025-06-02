@@ -47,7 +47,7 @@
             <div class="liste-adoption">
                 <% highlightsAdoption.forEach((cat) => { %>
                     <div class="cat-card">
-                        <img src="<%= cat.imagesSrc[0] %>" />
+                        <div class="adoption-image-frame" style="background-image: url('<%= cat.imagesSrc[0] %>') ;"></div>
                         <div class="overlay">
                             <p><%= cat.name %></p>
                             <img src="./assets/icones/<%= cat.gender %>.png" />
