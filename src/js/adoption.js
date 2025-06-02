@@ -1,3 +1,6 @@
+const MALE = 'M'
+const FEMALE = 'F'
+
 var fromRoot = path => { return document.getElementById('relative-root').textContent + path};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -123,14 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         detailImage.src = catData.imagesSrc[0] || fromRoot('assets/images/image-default.jpg'); // Image par défaut si non spécifiée TODO: changer
         detailImage.alt = `Photo détaillée de ${catData.name}`;
-        detailGenderIcon.src = `${fromRoot('assets/icones')}/${catData.gender === 'male' ? 'male.png' : 'femelle.png'}`;
-        detailGenderIcon.alt = catData.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle';
+        detailGenderIcon.src = `${fromRoot('assets/icones')}/${catData.gender.toUpperCase() === MALE ? 'male.png' : 'femelle.png'}`;
+        detailGenderIcon.alt = catData.gender.toUpperCase() === MALE ? 'Genre: Mâle' : 'Genre: Femelle';
         detailName.textContent = catData.name || "Nom inconnu";
         detailAge.textContent = catData.age || "Age inconnu";
         detailQuote.textContent = catData.quote || "";
 
         if (catData.imagesSrc.length > 1) {
             photos = catData.imagesSrc.slice(1)
+
 
             photos.forEach(photo => {
                 const catPhoto = document.createElement("div");
@@ -225,25 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
             adoptionGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
-
-    // --- Le reste de ton code (fetch, .then, .catch, listeners...) ---
-    // Assure-toi que le listener pour backButton est bien dans le .then()
-
-    /* Exemple d'emplacement dans le .then() de fetchAdoptionData:
-
-    fetchAdoptionData()
-        .then(fetchedData => {
-             // ... (stockage données, création Map) ...
-
-             // --- Attacher les listeners ---
-             // ... (listeners des filtres, pagination) ...
-             backButton.addEventListener('click', hideDetailView); // <<< ICI
-
-             // ... (initialisation affichage grille) ...
-        })
-        .catch(error => { ... });
-    */
-
 
     // --- Logique de Filtrage ---
 
@@ -344,7 +329,11 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 <img src="${imageSource}" alt="Photo de ${cat.name}" class="card-image">
                 <div class="page-adoption-card-text">
-                    <img src="${fromRoot('assets/icones')}/${cat.gender === 'male' ? 'male.png' : 'femelle.png'}" alt="${cat.gender === 'male' ? 'Genre: Mâle' : 'Genre: Femelle'}" class="gender-icon">
+                    <img 
+                        src="${fromRoot('assets/icones')}/${cat.gender.toUpperCase() === MALE ? 'male.png' : 'femelle.png'}" 
+                        alt="${cat.gender.toUpperCase() === MALE ? 'Genre: Mâle' : 'Genre: Femelle'}" 
+                        class="gender-icon"
+                    >
                     <span class="section-title">${cat.name}</span>
                     <span class="text">${cat.age}</span>
                     <span class="citation">${cat.quote}</span>
