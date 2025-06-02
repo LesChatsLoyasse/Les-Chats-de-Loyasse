@@ -567,12 +567,10 @@ nav[role="navigation"] {
     background-color: var(--dark-background-color);
 }
 
-.cat-card img {
-    width: 100%;
-    display: block;
-    height: 245px;
+.adoption-image-frame {
+    height: 80%;
     clip-path: ellipse(90% 100% at 50% 0%);
-    padding-bottom: 0px;
+    background-size: cover;
 }
 
 .overlay {
