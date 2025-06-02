@@ -47,7 +47,11 @@
             <div class="liste-adoption">
                 <% highlightsAdoption.forEach((cat) => { %>
                     <div class="cat-card">
-                        <div class="adoption-image-frame" style="background-image: url('<%= cat.imagesSrc[0] %>') ;"></div>
+                        <div class="adoption-image-frame" style="
+                            background-image: url('<%= cat.imagesSrc[0] %>'); 
+                            height: 80%;
+                            clip-path: ellipse(90% 100% at 50% 0%);
+                            background-size: cover;"></div>
                         <div class="overlay">
                             <p><%= cat.name %></p>
                             <img 
