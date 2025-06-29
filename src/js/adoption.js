@@ -75,26 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     console.error("Erreur lors de la récupération simulée des données :", error);
                     reject("Impossible de charger les données des adoptions."); // La Promise échoue
                 }
-            }, 300); // Simule 300ms de délai
-
-            /*
-            // ===> PLUS TARD, TU REMPLACERAS LE setTimeout PAR CECI <===
-            fetch('/chemin/vers/ton/api/qui/lit/excel') // Adapte l'URL
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Erreur HTTP: ${response.status}`);
-                    }
-                    return response.json(); // Convertit la réponse en JSON
-                })
-                .then(data => {
-                    console.log(`Données récupérées depuis l'API : ${data.length} éléments.`);
-                    resolve(data);
-                })
-                .catch(error => {
-                    console.error("Erreur lors de la récupération via API:", error);
-                    reject("Impossible de charger les données des adoptions depuis le serveur.");
-                });
-            */
+            }, 300);
         });
     }
 
@@ -177,8 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
             nextCarousel.disabled = counter === photos.length - 1;
         }
 
-        // Gère la description : remplace les sauts de ligne (\n) par des balises <br> pour l'affichage HTML
-        // Si la description est vide ou non définie, affiche un message par défaut.
         const descriptionHtml = catData.description ? catData.description.replace(/\n/g, '<br>') : "<p><em>Plus d'informations bientôt disponibles.</em></p>";
         detailDescription.innerHTML = descriptionHtml;
 

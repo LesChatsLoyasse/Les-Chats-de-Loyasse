@@ -48,8 +48,9 @@
                 <% highlightsAdoption.forEach((cat) => { %>
                     <div class="cat-card">
                         <div class="adoption-image-frame" style="
-                            background-image: url('<%= cat.imagesSrc[0] %>'); 
+                            background-image: url('<%= cat.imagesSrc[0] %>');
                             height: 80%;
+                            min-height: 15vh;
                             clip-path: ellipse(90% 100% at 50% 0%);
                             background-size: cover;"></div>
                         <div class="overlay">

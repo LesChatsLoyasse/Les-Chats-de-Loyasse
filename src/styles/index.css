@@ -892,8 +892,8 @@ nav[role="navigation"] {
 }
 
 .page-adoption-card img {
-    width: 20vw;
-    height: 120%;
+    width: 40%;
+    height: 110%;
     object-fit: cover;
     z-index: 4;
     box-shadow: var(--box-shadow);
@@ -941,6 +941,7 @@ nav[role="navigation"] {
     box-shadow: none;
     align-self: flex-end;
     margin-top: -11%;
+    min-height: 0;
 }
 
 .page-adoption-list nav {
