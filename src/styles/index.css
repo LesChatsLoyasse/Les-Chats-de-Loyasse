@@ -650,6 +650,7 @@ nav[role="navigation"] {
 
     .overlay {
         padding-bottom: 3vh;
+        margin-top: -1vh;
     }
 }
 
