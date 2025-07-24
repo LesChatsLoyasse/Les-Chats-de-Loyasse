@@ -37,3 +37,4 @@ jobs:
           folder: public
           branch: my-pages
           clean: true
+          single-commit: true
